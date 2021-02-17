@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+  <title>Document</title>
+  <style>
+    html{
+      top:0;
+      left:0;
+    }
+    body{
+      margin:0;
+    }
+    body >* {
+      width:100%;
+
+    }
+    .header, .footer{
+      height: 60px;
+    }
+    .header{
+      background: #202020;
+      width: 100%;
+      position: fixed;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .headerLeft{
+      display: flex;
+      width: 220px;
+      /*grid-template-columns: 30% 70%;*/
+      justify-content: space-between;
+      align-items: center;
+    }
+    .headerLeft > *{
+      color:white;
+    }
+    .logoAndName{
+      display: flex;
+      align-items: center;
+    }
+    .fa-film{
+      color: white;
+      padding: 0 0 0 10px;}
+
+    .siteName{
+      line-height: 50%;
+    }
+    .search-box{
+      padding: 10px;
+      top: 50%;
+      left: 50%;
+      height: 25px;
+      background-color: #fff;
+      border: 1px solid white;
+      border-radius: 30px;
+      transition: 0.4s;
+      width:25px;
+      animation-direction: reverse;
+      margin:0 50px 0 0;
+    }
+    .search-box:hover{
+      box-shadow: 0px 0px .5px 1px #51e3d4;
+      width: 180px;
+      animation-direction: reverse;
+    }
+    .search-btn{
+      text-decoration: none;
+      float:right;
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #51e3d4;
+    }
+    .search-box:hover > .search-btn{
+      background-color:white;
+      /*display: none;*/
+    }
+    .search-txt{
+      display: flex;
+      padding: 0;
+      width: 0px;
+      border:none;
+      background: none;
+      outline: none;
+      float: left;
+      font-size: 1rem;
+      line-height: 25px;
+      transition: .4s;
+    }
+    .search-box:hover > .search-txt{
+      width: 120px;
+      padding: 0 6px;
+    }
+    .bodyWrap{
+      background: #181818;
+      padding:100px 0 0 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+    .bodyWrap > *{
+      margin: 10px 0 20px 0;
+    }
+    .bodyWrap >*> *{
+      color: white;
+    }
+
+    .topWrap > *{
+      border:1px solid white;
+    }
+    .topWrap{
+      display: flex;
+      justify-content: space-between;
+      width:80%;
+    }
+    .poster{
+      width:350px;
+      height:502px;
+      color:white;
+    }
+    .infoWrap{
+      width:50%;
+      align-items: center;
+    }
+    .infoWrap > *{
+      width:50%;
+      height: 40px;
+      border: 1px solid white;
+      margin: 10px;
+      line-height: 40px;
+      color: white;
+    }
+    .titleWrap{
+      width:50%;
+      display: flex;
+      align-items: center;
+    }
+    .title{
+      margin: 0 10px 0 0;
+    }
+    .platformInfoWrap{
+      width:90%;
+      height: 250px;
+    }
+    .middleWrap{
+      display: grid;
+      grid-template-columns: 2.5fr 1.5fr;
+      width:80%;
+      height:300px;
+      /*border: 1px solid white;*/
+      align-items: center;
+    }
+    .story{
+      height: 250px;
+      border: 1px solid white;
+    }
+    .youtube{
+      height: 250px;
+      border:1px solid white;
+    }
+    .bottomWrap{
+      width:90%;
+      min-height: 200px;
+      /*border: 1px solid white;*/
+      display: flex;
+      justify-content: space-between;
+    }
+    .commentWrap{
+      width:90%;
+      min-height: 180px;
+      border: 1px solid white;
+    }
+    .commentBtn{
+      width:10%;
+      height: 35px;
+      background:#313131;
+      line-height: 50%;
+      border: none;
+      border-radius: 5px;
+    }
+    .footer{
+      background: #202020;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .eidtor{
+      color: #909090;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="headerLeft">
+    <div class="logoAndName">
+      <i class="fas fa-film fa-2x"></i>
+      <div class="siteName"><h1>FINDA</h1></div>
+    </div>
+
+    <div class="homeBtn">
+      <a>home</a>
+    </div>
+  </div>
+  <div class="search-box">
+    <input type="text" class="search-txt" name=""placeholder="Type to search">
+    <a class="search-btn" href="#">
+      <i class="fas fa-search fa-2x"></i>
+    </a>
+  </div>
+</div>
+<div class="bodyWrap">
+  <div class="topWrap">
+    <div class="poster">포스터</div>
+    <div class="infoWrap">
+      <div class="titleWrap">
+        <div class="title">영화 제목</div>
+        <div class="year">연도</div>
+      </div>
+      <div class="director">감독</div>
+      <div class="genre">장르</div>
+      <div class="actor">출연진</div>
+      <div class="platformInfoWrap"></div>
+    </div>
+  </div>
+  <div class="middleWrap">
+    <div class="story">줄거리</div>
+    <div class="youtube">소개 영상</div>
+  </div>
+  <div class="bottomWrap">
+    <div class="commentWrap"></div>
+    <button class="commentBtn">게시</button>
+  </div>
+</div>
+<div class="footer">
+  <div class="eidtor">JungSeungHyun </div>
+</div>
+</body>
+</html>

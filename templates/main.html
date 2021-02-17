@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html{
+            top:0;
+            left:0;
+        }
+        body{
+            margin:0;
+        }
+        body >* {
+            width:100%;
+
+        }
+        .header, .footer{
+            height: 50px;
+        }
+        .header{
+            background: skyblue;
+            position: fixed;
+        }
+        .topBody, .bottomBody{
+            height:100vh;
+            background: blue;
+            display: flex;
+            align-items: center;
+            line-height: 50%;
+            flex-direction: column;
+            justify-content: space-evenly;
+
+        }
+        .bottomBody{
+            background: yellow;
+
+        }
+        .searchbarWrap, .recommendBarWrap{
+            width:90%;
+            height: 50px;
+            background: gray;
+            display: flex;
+
+
+        }
+        .searchbar, .recommendBar{
+            width:90%;
+            height: 100%;
+            border: 1px solid black;
+
+        }
+        .searchBtn, .reccomendBtn{
+            width:10%;
+            height: 100%;
+            border: 1px solid black;
+            background: darkblue;
+        }
+        .footer{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+<div class="topBody">
+    <div class="topWord"> 찾는 영화가 어디서 서비스중인지 바로 찾아보세요!</div>
+    <div class="searchbarWrap">
+     <div class="searchbar">서치바임</div>
+        <div class="searchBtn">버튼</div>
+    </div>
+
+</div>
+<div class="bottomBody">
+    <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
+    <div class="recommendBarWrap">
+        <div class="recommendBar">추천바임</div>
+        <div class="reccomendBtn">버튼</div>
+    </div>
+
+</div>
+<div class="footer">푸터임</div>
+</body>
+</html>
