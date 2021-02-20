@@ -1,0 +1,86 @@
+<!Doctype html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery+Ajax의 조합을 연습하자!</title>
+
+    <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
+        }
+    </style>
+
+    <script>
+        function getTitlePoster() {
+            $.ajax({
+                type: "GET",
+                url: `https://apis.justwatch.com/content/titles/ko_KR/popular?body=%7B%22fields%22:[%22id%22,%22title%22,%22full_path%22,%22poster%22,%22object_type%22],%22content_types%22:[%22movie%22],%22monetization_types%22:[%22ads%22,%22buy%22,%22flatrate%22,%22rent%22,%22free%22],%22page%22:0,%22page_size%22:10,%22matching_offers_only%22:false%7D`,
+                data: {},
+                success: function(response){
+                    let rows = response['items']
+                    console.log(rows)
+                    for (let i = 0; i < rows.length; i++) {
+                        let row = rows[i]
+                        let title = row['title']
+                        let poster = row['poster']
+                        let id = row['id']
+                        console.log(title+ ":" + id)
+                        let splitUrl = poster.split('/')
+                        let url = splitUrl[2]
+                        let temp = `<div>${title}</div>  </>
+                                        <img src="https://images.justwatch.com/poster/${url}/s332/">`
+                        $('#mise-info').append(temp)
+                        getDetail(id)
+
+
+
+
+
+
+                    }
+
+                }
+            })
+        }
+        function getDetail(id){
+            $.ajax({
+                type: "GET",
+                url: `https://apis.justwatch.com/content/titles/movie/${id}/locale/ko_KR?language=ko`,
+                data: {},
+                success: function(response) {
+                    let rows = [response]
+                    console.log(rows)
+                    // let mvname = rows[0][title]
+                    // // console.log(mvname)
+
+
+                }
+            })
+        }
+        $(document).ready(function() {
+            getTitlePoster()
+        })
+    </script>
+
+</head>
+
+<body>
+<h1>jQuery+Ajax의 조합을 연습하자!</h1>
+// 상세페이지 api: https://apis.justwatch.com/content/titles/movie/142381/locale/ko_KR?language=ko
+
+<hr/>
+
+<div class="question-box">
+    <h2> 서울시 OpenAPI(실시간 대기환경 정보)를 이용하기</h2>
+    <p>모든 관측소(MSRSTE_NM)의 미세먼지 수치(PM10)를 표기해주세요</p>
+    <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+    <button onclick="showMiseInfo()">업데이트</button>
+    <div id="mise-info"></div>
+</div>
+</body>
+
+</html>
