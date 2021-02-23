@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
@@ -68,7 +69,9 @@
 <div class="topBody">
     <div class="topWord"> 찾는 영화가 어디서 서비스중인지 바로 찾아보세요!</div>
     <div class="searchbarWrap">
-     <div class="searchbar">서치바임</div>
+        <div class="searchbar">
+            <input type="text" id="search" onkeyup="getSearchEngine()" placeholder="찾고 싶은 영화를 입력해주세요">
+        </div>
         <div class="searchBtn">버튼</div>
     </div>
 
@@ -83,4 +86,33 @@
 </div>
 <div class="footer">푸터임</div>
 </body>
+<script>
+    function getSearchEngine() {
+        let search =$('#search').val()
+        $.ajax({
+            type: "POST",
+            url: "/main",
+            data: {
+                'search_give': search
+
+            },
+            success: function (response) {
+                if (response["result"] == "success") {
+                    console.log('입력되고 있는중')
+                    console.log(search)
+
+                }
+            }
+        })
+        $.ajax({
+            type: "GET",
+            url: "/main",
+            data: {},
+            success: function (response) {
+                let rows= response['data']
+                console.log(rows)
+            }
+        })
+    }
+</script>
 </html>
