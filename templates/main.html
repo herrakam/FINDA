@@ -70,7 +70,7 @@
     <div class="topWord"> 찾는 영화가 어디서 서비스중인지 바로 찾아보세요!</div>
     <div class="searchbarWrap">
         <div class="searchbar">
-            <input type="text" id="search" onkeyup="getSearchEngine()" placeholder="찾고 싶은 영화를 입력해주세요">
+            <input type="text" id="search" onkeyup="searchEngine()" placeholder="찾고 싶은 영화를 입력해주세요">
         </div>
         <div class="searchBtn">버튼</div>
     </div>
@@ -87,32 +87,37 @@
 <div class="footer">푸터임</div>
 </body>
 <script>
-    function getSearchEngine() {
+    function searchEngine() {
         let search =$('#search').val()
-        $.ajax({
-            type: "POST",
-            url: "/main",
-            data: {
-                'search_give': search
+        let timer;
+        if(timer){
+            clearTimeout(timer)
+        }
+        timer = setTimeout(function(){
 
-            },
-            success: function (response) {
-                if (response["result"] == "success") {
-                    console.log('입력되고 있는중')
-                    console.log(search)
 
+            $.ajax({
+                type: "GET",
+                url: "/search/movie",
+                data: {
+                    'search_give': search
+                },
+                success: function (response) {
+                    if (response["result"] == "success") {
+                        console.log(search)
+                        let rows = response['data']
+                        for (let i = 0; i < rows.length; i++) {
+                            let row = rows[i]
+                            title = row['title']
+                            poster = row['poster']
+                            console.log(title, poster)
+
+                        }
+
+                    }
                 }
-            }
-        })
-        $.ajax({
-            type: "GET",
-            url: "/main",
-            data: {},
-            success: function (response) {
-                let rows= response['data']
-                console.log(rows)
-            }
-        })
+            })
+        },400)
     }
 </script>
 </html>

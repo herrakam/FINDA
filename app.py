@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 import requests
-from bs4 import BeautifulSoup
+
 
 app = Flask(__name__)
 client = MongoClient('localhost', 27017)  # mongoDB는 27017 포트로 돌아갑니다.
@@ -11,9 +11,9 @@ db = client.DBFINDA
 def home():
     return render_template('main.html')
 
-@app.route('/main')
-def return_main():
-    return render_template('main.html')
+# @app.route('/main')
+# def return_main():
+#     return render_template('main.html')
 
 @app.route('/result')
 def return_result():
@@ -55,12 +55,23 @@ def post_db():
 
    return jsonify({'result': 'success', 'msg': 'db에 잘 들어감!'})
 
-@app.route('/main', methods=['POST'])
+@app.route('/search/movie', methods=['GET'])
 def get_search_data():
-    search_receive = request.form['search_give']
-    search_list = list(db.movie.find(
-        {'$or':[ {'title': {'$regex': search_receive}}]},{'_id': False}
-    ))
+    search_receive = request.args.get('search_give')
+    search_list = list(db.movie.find({'$or':[ {'title': {'$regex': search_receive}}]},{'_id': False}))
     return jsonify({'result': 'success', 'data': search_list})
+
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     app.run('0.0.0.0',port=5000, debug=True)
