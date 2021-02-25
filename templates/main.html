@@ -28,25 +28,35 @@
         }
         .topBody, .bottomBody{
             height:100vh;
+            min-height: 100vh;
             background: blue;
             display: flex;
             align-items: center;
-            line-height: 50%;
+            line-height: 40%;
             flex-direction: column;
-            justify-content: space-evenly;
 
         }
         .bottomBody{
             background: yellow;
-
+            /*justify-content: space-evenly;*/
+        }
+        .topWord{
+            margin-top: 140px;
+            height:20%;
         }
         .searchbarWrap, .recommendBarWrap{
             width:90%;
             height: 50px;
             background: gray;
+
+        }
+        .recommendBarWrap{
             display: flex;
-
-
+        }
+        .barTopWrap{
+            display: flex;
+            width:100%;
+            height: 50px;
         }
         .searchbar, .recommendBar{
             width:90%;
@@ -54,13 +64,47 @@
             border: 1px solid black;
 
         }
+
+        #search{
+            width:100%;
+            height: 90%;
+            background: white;
+            opacity: 0.5 ;
+        }
         .searchBtn, .reccomendBtn{
             width:10%;
             height: 100%;
             border: 1px solid black;
             background: darkblue;
         }
+        .searchResult{
+            display: none;
+            height:200px;
+            border: 1px solid black;
+            margin:0;
+            padding-top: 10px;
+            transition: 1s;
+            background: white;
+            align-items: center;
+
+        }
+        .searchboxLine{
+            width:100%;
+            height: 10px;
+            border-bottom: 2px solid gray;
+        }
+        .resultBoxText{
+            height: 40px;
+            width:100%;
+            background: skyblue;
+            line-height: 40px;
+        }
+        .recommendWord{
+            margin-top: 140px;
+            height:20%;
+        }
         .footer{
+            height: 50px;
             background: red;
         }
     </style>
@@ -69,11 +113,15 @@
 <div class="topBody">
     <div class="topWord"> 찾는 영화가 어디서 서비스중인지 바로 찾아보세요!</div>
     <div class="searchbarWrap">
-        <div class="searchbar">
-            <input type="text" id="search" onkeyup="searchEngine()" placeholder="찾고 싶은 영화를 입력해주세요">
+        <div class="barTopWrap">
+            <div class="searchbar">
+                <input type="text" id="search" onkeyup="searchEngine()" onblur="hideSearch()" placeholder="찾고 싶은 영화를 입력해주세요">
+            </div>
+            <div class="searchBtn">버튼</div>
         </div>
-        <div class="searchBtn">버튼</div>
+        <div class="searchResult"></div>
     </div>
+
 
 </div>
 <div class="bottomBody">
@@ -87,15 +135,19 @@
 <div class="footer">푸터임</div>
 </body>
 <script>
+    let timer;
     function searchEngine() {
+        $('.searchResult').show()
         let search =$('#search').val()
-        let timer;
+        $('.searchResult').empty()
+        if (search ===""){
+            $('.searchResult').empty()
+            return
+        }
         if(timer){
             clearTimeout(timer)
         }
         timer = setTimeout(function(){
-
-
             $.ajax({
                 type: "GET",
                 url: "/search/movie",
@@ -104,13 +156,18 @@
                 },
                 success: function (response) {
                     if (response["result"] == "success") {
-                        console.log(search)
+                        $('.searchResult').empty()
+                        $('.searchResult').css('height','200px')
                         let rows = response['data']
                         for (let i = 0; i < rows.length; i++) {
                             let row = rows[i]
-                            title = row['title']
-                            poster = row['poster']
-                            console.log(title, poster)
+                            let searchedTitle = row['title']
+                            let searchedPoster = row['poster']
+                            let temp = `<div class="resultBoxText">${searchedTitle}</div><div class = "searchboxLine"></div>`
+                            $('.searchResult').append(temp)
+                            if (search === ""){
+                                $('.searchResult').empty()
+                            }
 
                         }
 
@@ -119,5 +176,13 @@
             })
         },400)
     }
+    function hideSearch(){
+        $('.searchResult').empty()
+        $('.searchResult').css('padding-top',0)
+        $('.searchResult').animate({
+            height:'0px'
+        },200)
+    }
+
 </script>
 </html>
