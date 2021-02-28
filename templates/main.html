@@ -94,7 +94,7 @@
         .searchResult{
             display: none;
             height:200px;
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             margin:0;
             padding-top: 10px;
             transition: 1s;
@@ -193,6 +193,7 @@
     function hideSearch(){
         $('.searchResult').empty()
         $('.searchResult').css('padding-top',0)
+        $('.searchResult').css('border','none')
         $('.searchResult').animate({
             height:'0px'
         },200)

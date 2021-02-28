@@ -11,10 +11,6 @@ db = client.DBFINDA
 def home():
     return render_template('main.html')
 
-# @app.route('/main')
-# def return_main():
-#     return render_template('main.html')
-
 @app.route('/result')
 def return_result():
     return render_template('result.html')
@@ -26,7 +22,6 @@ def retrun_search():
 @app.route('/getdb')
 def return_getdb():
     return render_template('scraping.html')
-
 
 @app.route('/getdb',methods=['POST'])
 def post_db():
