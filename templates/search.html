@@ -1,26 +1,28 @@
 {% extends 'layout.html' %}
 {% block style %}
 <style>
-  .searchTopWord{
-    height: 30px;
-    border: 1px solid white;
-    background: blue;
+  .searchTopWrap{
+    width:90%;
+    height: 50px ;
   }
-  .prac{
+  .searchTopWord{
+    height: 50px;
+    margin-top: 5px;
+    /*border: 1px solid white;*/
     color: white;
+    font-size: 40px;
+    float: left;
   }
   .mainWrap{
     width:90%;
     height: 70%;
-    background: darkgray;
     margin: 50px 0 0 0;
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
   }
   .resultMovie{
-    width:250px;
-    height: 370px;
     border: 1px solid white;
     display: flex;
     flex-direction: column;
@@ -29,8 +31,8 @@
 
   }
   .poster{
-    width:200px;
-    height: 300px;
+    width:330px;
+    height: 400px;
     border: 1px solid white;
   }
   .title{
@@ -43,9 +45,22 @@
 {% endblock %}
 
 {% block content %}
-<div class="searchTopWord">~~~~~에 대한 검색 결과</div>
-<div class="prac">~~~~~~에 대한 검색 결과</div>
+<div class="searchTopWrap">
+  <div class="searchTopWord">~~~~~에 대한 검색 결과</div>
+</div>
 <div class="mainWrap">
+  <div class="resultMovie">
+    <div class="poster">포스터</div>
+    <div class="title">영화 제목</div>
+  </div>
+  <div class="resultMovie">
+    <div class="poster"></div>
+    <div class="title"></div>
+  </div>
+  <div class="resultMovie">
+    <div class="poster"></div>
+    <div class="title"></div>
+  </div>
   <div class="resultMovie">
     <div class="poster"></div>
     <div class="title"></div>
