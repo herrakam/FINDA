@@ -122,6 +122,9 @@
             background: red;
         }
     </style>
+    <script>
+
+    </script>
 </head>
 <body>
 <div class="topBody">
@@ -129,9 +132,9 @@
     <div class="searchbarWrap">
         <div class="barTopWrap">
             <div class="searchbar">
-                <input type="text" id="search" onkeyup="searchEngine()" onblur="hideSearch()" placeholder="찾고 싶은 영화를 입력해주세요">
+                <input type="text" id="search" onkeyup="searchEngine()" onfocusout="hideSearch()"  oncplaceholder="찾고 싶은 영화를 입력해주세요">
             </div>
-            <div class="searchBtn">버튼</div>
+            <button class="searchBtn" type="button" onclick="location.href=''">버튼</button>
         </div>
         <div class="searchResult"></div>
     </div>
@@ -142,14 +145,14 @@
     <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
     <div class="recommendBarWrap">
         <div class="recommendBar">추천바임</div>
-        <div class="reccomendBtn">버튼</div>
+        <button class="reccomendBtn" type="button">버튼</button>
     </div>
 
 </div>
 <div class="footer">푸터임</div>
 </body>
 <script>
-    let timer;
+    let timer, searchedTitle;
     function searchEngine() {
         $('.searchResult').show()
         let search =$('#search').val()
@@ -175,12 +178,12 @@
                         let rows = response['data']
                         for (let i = 0; i < rows.length; i++) {
                             let row = rows[i]
-                            let searchedTitle = row['title']
-                            let searchedPoster = row['poster']
-                            let temp = `<div class="resultBoxText">${searchedTitle}</div><div class = "searchboxLine"></div>`
+                            searchedTitle = row['title']
+                            let temp = `<div class="resultBoxText"><a href="/detail?search=${searchedTitle}">${searchedTitle}</a></div><div class = "searchboxLine"></div>`
                             $('.searchResult').append(temp)
-                            if (search === ""){
-                                $('.searchResult').empty()
+                            $('.search-btn').attr("href",'/search?search=${searchedTitle}')
+                            if ($('#search').val() === ""){
+                                hideSearch()
                             }
 
                         }
@@ -190,14 +193,16 @@
             })
         },400)
     }
+
     function hideSearch(){
-        $('.searchResult').empty()
-        $('.searchResult').css('padding-top',0)
-        $('.searchResult').css('border','none')
-        $('.searchResult').animate({
-            height:'0px'
-        },200)
-    }
+        setTimeout(function (){
+            $('.searchResult').empty()
+            $('.searchResult').css('padding-top',0)
+            $('.searchResult').css('border','none')
+            $('.searchResult').animate({
+                height:'0px'
+            },200)
+        },500)}
 
 </script>
 </html>

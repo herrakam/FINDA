@@ -11,9 +11,9 @@ db = client.DBFINDA
 def home():
     return render_template('main.html')
 
-@app.route('/result')
+@app.route('/detail')
 def return_result():
-    return render_template('result.html')
+    return render_template('detail.html')
 
 @app.route('/search')
 def retrun_search():

@@ -81,5 +81,8 @@
 {% endblock %}
 
 {% block script %}
-
+<script>
+  let search = new URL(location.href).searchParams.get('search')
+  console.log(search)
+</script>
 {% endblock %}
