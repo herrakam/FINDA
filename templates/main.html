@@ -129,6 +129,18 @@
             display: grid;
             place-content: center center;
         }
+        .recommendBar{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+            grid-auto-rows:100% ;
+            grid-gap: 10px;
+            justify-content: space-evenly;
+        }
+        .selectedGenre{
+            display: grid;
+            place-content: center center;
+            border: 1px solid blue;
+        }
 
     </style>
     <script>
@@ -152,9 +164,9 @@
 </div>
 <div class="bottomBody">
     <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
-    <div class="recommendBarWrap">
+    <div class="recommendBarWrap" onmouseover="getGenreBar()" onmouseout="hideRecommend()">
         <div class="barBottomWrap">
-            <div class="recommendBar" onmouseover="getGenreBar()" onfocusout="hideRecommend()">추천바임</div>
+            <div class="recommendBar"></div>
             <button class="reccomendBtn" type="button">버튼</button>
         </div>
         <div class="recommendBox">
@@ -254,7 +266,6 @@
 
     function hideRecommend(){
         setTimeout(function (){
-            console.log("닫는 함수 동작중")
             $('.recommendBox').css('padding-top',0)
             $('.genrebox').css('display','none')
             $('.recommendBox').css('border','none')
@@ -263,9 +274,43 @@
             },200)
         },500)}
 
-        $('.genrebox').click(function (){
-            let genreVal = $(this).text()
-            console.log(genreVal)
-        })
+    $(document).on('click', '.genrebox', function(e) {
+        let genreValArray = []
+        let genreVal = $(this).text()
+        let temp = `<div class="selectedGenre">${genreVal}</div>`
+        genreValArray.push(genreVal)
+        for (let i = 0; i < $('.selectedGenre').length; i++) {
+            let selectedText = $('.selectedGenre').eq(i).text()
+            genreValArray.push(selectedText)
+        }
+        let check = false;
+        for(let i = 0; i < genreValArray.length; i++) {
+            const currElem = genreValArray[i];
+            for(let j = i+1; j < genreValArray.length; j++) {
+                if(currElem === genreValArray[j]) {
+                    alert('장르는 하나씩만 선택해주세요!!')
+                    return
+                }
+            }
+            if(check)  {
+                break;
+            }
+        }
+        if ($('.selectedGenre').text() === genreVal){
+            alert('장르는 하나씩만 선택해주세요!!')
+            return
+        }
+        else{
+            if($('.selectedGenre').length > 3){
+                alert('장르 선택은 4개까지만 가능합니다.')
+                return
+            }
+            $('.recommendBar').append(temp)
+        }
+
+    })
+    $(document).on('click', '.selectedGenre', function(e) {
+        $(e.target).remove()
+    })
 </script>
 </html>
