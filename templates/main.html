@@ -158,24 +158,24 @@
             <button class="reccomendBtn" type="button">버튼</button>
         </div>
         <div class="recommendBox">
-            <div onclick="choosegenre()" class="genrebox action" >액션</div>
-            <div onclick="choosegenre()" class="genrebox animation" >애니메이션</div>
-            <div onclick="choosegenre()" class="genrebox comedy" >코미디</div>
-            <div onclick="choosegenre()" class="genrebox crime" >범죄</div>
-            <div onclick="choosegenre()" class="genrebox documentation" >다큐멘터리</div>
-            <div onclick="choosegenre()" class="genrebox drama" >드라마</div>
-            <div onclick="choosegenre()" class="genrebox fantasy" >판타지</div>
-            <div onclick="choosegenre()" class="genrebox history" >역사</div>
-            <div onclick="choosegenre()" class="genrebox horror" >공포</div>
-            <div onclick="choosegenre()" class="genrebox family" >가족</div>
-            <div onclick="choosegenre()" class="genrebox music" >음악</div>
-            <div onclick="choosegenre()" class="genrebox thriller" >스릴러</div>
-            <div onclick="choosegenre()" class="genrebox romance" >로맨스</div>
-            <div onclick="choosegenre()" class="genrebox sf" >SF</div>
-            <div onclick="choosegenre()" class="genrebox sport" >스포츠</div>
-            <div onclick="choosegenre()" class="genrebox war" >전쟁</div>
-            <div onclick="choosegenre()" class="genrebox western" >서부</div>
-            <div onclick="choosegenre()" class="genrebox european">Made in Europe</div>
+            <div class="genrebox action" >액션</div>
+            <div class="genrebox animation" >애니메이션</div>
+            <div class="genrebox comedy" >코미디</div>
+            <div class="genrebox crime" >범죄</div>
+            <div class="genrebox documentation" >다큐멘터리</div>
+            <div class="genrebox drama" >드라마</div>
+            <div class="genrebox fantasy" >판타지</div>
+            <div class="genrebox history" >역사</div>
+            <div class="genrebox horror" >공포</div>
+            <div class="genrebox family" >가족</div>
+            <div class="genrebox music" >음악</div>
+            <div class="genrebox thriller" >스릴러</div>
+            <div class="genrebox romance" >로맨스</div>
+            <div class="genrebox sf" >SF</div>
+            <div class="genrebox sport" >스포츠</div>
+            <div class="genrebox war" >전쟁</div>
+            <div class="genrebox western" >서부</div>
+            <div class="genrebox european">Made in Europe</div>
         </div>
     </div>
 </div>
@@ -263,9 +263,9 @@
             },200)
         },500)}
 
-    function choosegenre(){
-        let genreName = $(this).val()
-        console.log(this)
-    }
+        $('.genrebox').click(function (){
+            let genreVal = $(this).text()
+            console.log(genreVal)
+        })
 </script>
 </html>
