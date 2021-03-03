@@ -50,10 +50,8 @@
 
         }
 
-        .recommendBarWrap{
-            display: flex;
-        }
-        .barTopWrap{
+
+        .barTopWrap, .barBottomWrap{
             display: flex;
             width:100%;
             height: 50px;
@@ -91,9 +89,10 @@
             justify-content: center;
             align-items: center;
         }
-        .searchResult{
+        .searchResult, .recommendBox{
             display: none;
             height:200px;
+            width: 100%;
             /*border: 1px solid black;*/
             margin:0;
             padding-top: 10px;
@@ -117,10 +116,20 @@
             margin-top: 140px;
             height:20%;
         }
-        .footer{
-            height: 50px;
-            background: red;
+        .recommendBox{
+            /*display: grid;*/
+            justify-content: space-around;
+            grid-gap:5px;
+            grid-template-columns: repeat(6,1fr);
+            /*height: 250px;*/
         }
+        .genrebox{
+            border: 1px solid blue;
+            height: 50px;
+            display: grid;
+            place-content: center center;
+        }
+
     </style>
     <script>
 
@@ -134,7 +143,7 @@
             <div class="searchbar">
                 <input type="text" id="search" onkeyup="searchEngine()" onfocusout="hideSearch()"  oncplaceholder="찾고 싶은 영화를 입력해주세요">
             </div>
-            <button class="searchBtn" type="button" onclick="location.href=''">버튼</button>
+            <button class="searchBtn" type="button" onclick="getInfoUrl()">버튼</button>
         </div>
         <div class="searchResult"></div>
     </div>
@@ -144,12 +153,32 @@
 <div class="bottomBody">
     <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
     <div class="recommendBarWrap">
-        <div class="recommendBar">추천바임</div>
-        <button class="reccomendBtn" type="button">버튼</button>
+        <div class="barBottomWrap">
+            <div class="recommendBar" onmouseover="getGenreBar()" onfocusout="hideRecommend()">추천바임</div>
+            <button class="reccomendBtn" type="button">버튼</button>
+        </div>
+        <div class="recommendBox">
+            <div onclick="choosegenre()" class="genrebox action" >액션</div>
+            <div onclick="choosegenre()" class="genrebox animation" >애니메이션</div>
+            <div onclick="choosegenre()" class="genrebox comedy" >코미디</div>
+            <div onclick="choosegenre()" class="genrebox crime" >범죄</div>
+            <div onclick="choosegenre()" class="genrebox documentation" >다큐멘터리</div>
+            <div onclick="choosegenre()" class="genrebox drama" >드라마</div>
+            <div onclick="choosegenre()" class="genrebox fantasy" >판타지</div>
+            <div onclick="choosegenre()" class="genrebox history" >역사</div>
+            <div onclick="choosegenre()" class="genrebox horror" >공포</div>
+            <div onclick="choosegenre()" class="genrebox family" >가족</div>
+            <div onclick="choosegenre()" class="genrebox music" >음악</div>
+            <div onclick="choosegenre()" class="genrebox thriller" >스릴러</div>
+            <div onclick="choosegenre()" class="genrebox romance" >로맨스</div>
+            <div onclick="choosegenre()" class="genrebox sf" >SF</div>
+            <div onclick="choosegenre()" class="genrebox sport" >스포츠</div>
+            <div onclick="choosegenre()" class="genrebox war" >전쟁</div>
+            <div onclick="choosegenre()" class="genrebox western" >서부</div>
+            <div onclick="choosegenre()" class="genrebox european">Made in Europe</div>
+        </div>
     </div>
-
 </div>
-<div class="footer">푸터임</div>
 </body>
 <script>
     let timer, searchedTitle;
@@ -181,7 +210,6 @@
                             searchedTitle = row['title']
                             let temp = `<div class="resultBoxText"><a href="/detail?search=${searchedTitle}">${searchedTitle}</a></div><div class = "searchboxLine"></div>`
                             $('.searchResult').append(temp)
-                            $('.search-btn').attr("href",'/search?search=${searchedTitle}')
                             if ($('#search').val() === ""){
                                 hideSearch()
                             }
@@ -204,5 +232,40 @@
             },200)
         },500)}
 
+    function getInfoUrl(){
+        let searchinfo = $('#search').val()
+        let infourl = `/search?search=${searchinfo}`
+        location.href = infourl
+
+
+    }
+
+    function getGenreBar(){
+        setTimeout(function (){
+            $('.recommendBox').show()
+            $('.recommendBox').animate({height:'200px'},500)
+            $('.genrebox').animate({display:'grid'},500)
+            $('.recommendBox').css('display','grid')
+            $('.genrebox').css('display','grid')
+        },500)
+
+
+    }
+
+    function hideRecommend(){
+        setTimeout(function (){
+            console.log("닫는 함수 동작중")
+            $('.recommendBox').css('padding-top',0)
+            $('.genrebox').css('display','none')
+            $('.recommendBox').css('border','none')
+            $('.recommendBox').animate({
+                height:'0px'
+            },200)
+        },500)}
+
+    function choosegenre(){
+        let genreName = $(this).val()
+        console.log(this)
+    }
 </script>
 </html>

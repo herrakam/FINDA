@@ -32,7 +32,7 @@ def post_db():
    genre_receive = request.form.getlist('genre_give[]')
    actor_receive = request.form.getlist('actor_give[]')
    platformname_receive = request.form.getlist('platformName_give[]')
-   iconurl_receive = request.form['iconUrl_give']
+   iconurl_receive = request.form.getlist('iconUrl_give[]')
    desc_receive = request.form['desc_give']
 
    doc = {

@@ -18,12 +18,13 @@
     height: 70%;
     margin: 50px 0 0 0;
     display: grid;
-    grid-gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
+    place-content: center;
 
   }
   .resultMovie{
-    border: 1px solid white;
+    /*border: 1px solid white;*/
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,14 +32,21 @@
 
   }
   .poster{
-    width:330px;
-    height: 400px;
-    border: 1px solid white;
+    width:200px;
+    height: 300px;
+    /*border: 1px solid white;*/
+    border-radius: 5px;
+    background-size: cover;
   }
   .title{
     border: 1px solid white;
     width:80%;
-    height: 30px;
+    height: 40px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
 
   }
 </style>
@@ -46,43 +54,64 @@
 
 {% block content %}
 <div class="searchTopWrap">
-  <div class="searchTopWord">~~~~~에 대한 검색 결과</div>
+  <div class="searchTopWord"></div>
 </div>
 <div class="mainWrap">
-  <div class="resultMovie">
-    <div class="poster">포스터</div>
-    <div class="title">영화 제목</div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
-  <div class="resultMovie">
-    <div class="poster"></div>
-    <div class="title"></div>
-  </div>
+
+
+
 </div>
 {% endblock %}
 
 {% block script %}
 <script>
+  $(document).ready(function () {
+    getSearchedInfo()
+  })
+
   let search = new URL(location.href).searchParams.get('search')
-  console.log(search)
+  if(search===""){
+    $('.searchTopWord').text(`FINDA의 영화목록`)}
+  else{
+    $('.searchTopWord').text(`'${search}'에 대한 검색 결과`)
+  }
+  let pagecount;
+
+
+  function getSearchedInfo(){
+
+    $.ajax({
+      type: "GET",
+      url: "/search/movie",
+      data: {
+        'search_give': search
+      },
+      success: function (response) {
+        if (response["result"] == "success") {
+          let rows = response['data']
+          pagecount = 0
+          for (let i = pagecount; i < rows.length; i++) {
+            let row = rows[i]
+            searchedPoster = row['poster']
+            searchedTitle = row['title']
+            let temp = `
+                         <div class="resultMovie">
+                            <a href="/detail?search=${searchedTitle}">
+                              <img class="poster" src="${searchedPoster}">
+                            </a>
+                         </div>`
+            $('.mainWrap').append(temp)
+            pagecount++
+            if(pagecount>=30){
+              return
+            }
+          }
+        }
+      }
+    })
+
+
+  }
 </script>
+
 {% endblock %}

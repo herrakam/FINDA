@@ -1,114 +1,254 @@
 {% extends "layout.html" %}
 {%block style %}
-  <style>
-    .bodyWrap > *{
-      margin: 10px 0 20px 0;
-    }
-    .bodyWrap >*> *{
-      color: white;
-    }
+<style>
+  .bodyWrap > *{
+    margin: 10px 0 20px 0;
+  }
+  .bodyWrap >*> *{
+    color: white;
+  }
 
-    .topWrap > *{
-      border:1px solid white;
-    }
-    .topWrap{
-      display: flex;
-      justify-content: space-between;
-      width:80%;
-    }
-    .poster{
-      width:350px;
-      height:502px;
-      color:white;
-    }
-    .infoWrap{
-      width:50%;
-      align-items: center;
-    }
-    .infoWrap > *{
-      width:50%;
-      height: 40px;
-      border: 1px solid white;
-      margin: 10px;
-      line-height: 40px;
-      color: white;
-    }
-    .titleWrap{
-      width:50%;
-      display: flex;
-      align-items: center;
-    }
-    .title{
-      margin: 0 10px 0 0;
-    }
-    .platformInfoWrap{
-      width:90%;
-      height: 250px;
-    }
-    .middleWrap{
-      display: grid;
-      grid-template-columns: 2.5fr 1.5fr;
-      width:80%;
-      height:300px;
-      /*border: 1px solid white;*/
-      align-items: center;
-    }
-    .story{
-      height: 250px;
-      border: 1px solid white;
-    }
-    .youtube{
-      height: 250px;
-      border:1px solid white;
-    }
-    .bottomWrap{
-      width:90%;
-      min-height: 200px;
-      /*border: 1px solid white;*/
-      display: flex;
-      justify-content: space-between;
-    }
-    .commentWrap{
-      width:90%;
-      min-height: 180px;
-      border: 1px solid white;
-    }
-    .commentBtn{
-      width:10%;
-      height: 35px;
-      background:#313131;
-      line-height: 50%;
-      border: none;
-      border-radius: 5px;
-    }
+  .topWrap > *{
+    /*border:1px solid white;*/
+  }
+  .topWrap{
+    display: grid;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: 1fr 2fr;
+    width:80%;
+    /*border: 1px solid white;*/
+    /*min-height: 800px;*/
+    /*min-width: 90%;*/
+  }
+  .poster{
+    width:300px;
+    height:400px;
+    color:white;
+    border: none;
+    border-radius: 5px;
+  }
+  .infoWrap{
+    width:100%;
+    min-width: 75%;
+    align-items: center;
 
-  </style>
+  }
+  .infoWrap > *{
+    width:50%;
+    height: 40px;
+    /*border: 1px solid white;*/
+    margin: 10px;
+    line-height: 40px;
+    color: white;
+  }
+  .titleWrap{
+    width:100%;
+    display: flex;
+    align-items: flex-end;
+    border: none;
+    /*border: 1px solid white;*/
+  }
+  .title{
+    /*border: 1px solid white;*/
+    margin: 0 15px 0 0;
+    height:40px;
+    font-size: 35px;
+  }
+  .year{
+    display: grid;
+    place-content:start start ;
+    height:25px;
+    font-size: 20px;
+    padding: 0 0 10px 0;
+  }
+  .directorWrap, .genreWrap, .actorWrap{
+    width: 100%;
+    display: flex;
+    border: none;
+  }
+  .directortab, .genretab, .actortab{
+    /*border: 1px solid white;*/
+    width:20%;
+    /*height: 100%;*/
+  }
+  .director, .actors, .genre{
+    width:75%;
+    height: 100%;
+    /*border: 1px solid white;*/
+  }
+  .actorWrap{
+    height: 70px;
+  }
+  .actors{
+    display: grid;
+    grid-auto-rows: 30px;
+    grid-template-columns: repeat(5,minmax(max-content,max-content));
+  }
+  .actor{
+    /*border: 1px solid white;*/
+  }
+  .platformInfoWrap{
+    width:100%;
+    height: 250px;
+  }
+  .platformDetailWrap{
+    display: flex;
+    width:100%;
+    height: 80%;
+    /*border: 1px solid white;*/
+  }
+  .platformInfo{
+    margin: 0 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .platformIcon{
+    width:100px;
+    height: 100px;
+  }
+  .platformName{
+    font-size: 20px;
+  }
+  .middleWrap{
+    width:80%
+  }
+  .storyWrap{
+    font-size: 20px;;
+  }
+  .story{
+    height: 250px;
+    /*border: 1px solid white;*/
+    font-size:17px;
+  }
+  /*.youtube{*/
+  /*  height: 250px;*/
+  /*  border:1px solid white;*/
+  /*}*/
+  .bottomWrap{
+    width:80%;
+    min-height: 200px;
+    /*border: 1px solid white;*/
+    display: flex;
+    justify-content: space-between;
+  }
+  .commentWrap{
+    width:90%;
+    min-height: 180px;
+    border: 1px solid white;
+  }
+  .commentBtn{
+    width:10%;
+    height: 35px;
+    background:#313131;
+    line-height: 50%;
+    border: none;
+    border-radius: 5px;
+  }
+
+</style>
 {% endblock %}
 
 {% block content %}
-  <div class="topWrap">
-    <div class="poster">포스터</div>
-    <div class="infoWrap">
-      <div class="titleWrap">
-        <div class="title">영화 제목</div>
-        <div class="year">연도</div>
-      </div>
-      <div class="director">감독</div>
-      <div class="genre">장르</div>
-      <div class="actor">출연진</div>
-      <div class="platformInfoWrap"></div>
+<div class="topWrap">
+  <div class="poster"></div>
+  <div class="infoWrap">
+    <div class="titleWrap">
+      <div class="title"></div>
+      <div class="year"></div>
+    </div>
+    <div class="directorWrap">
+      <div class="directortab">감독</div>
+      <div class="director"></div>
+    </div>
+    <div class="genreWrap">
+      <div class="genretab">장르</div>
+      <div class="genre"></div>
+    </div>
+    <div class="actorWrap">
+      <div class="actortab">출연진</div>
+      <div class="actors"></div>
+    </div>
+    <div class="platformInfoWrap">
+      <div class="platformtab">이곳에서 찾아볼 수 있어요!</div>
+      <div class="platformDetailWrap"></div>
     </div>
   </div>
-  <div class="middleWrap">
-    <div class="story">줄거리</div>
-    <div class="youtube">소개 영상</div>
+</div>
+<div class="middleWrap">
+  <div class="storyWrap">시놉시스
+    <div class="story"></div>
   </div>
-  <div class="bottomWrap">
-    <div class="commentWrap"></div>
-    <button class="commentBtn">게시</button>
-  </div>
+</div>
+<div class="bottomWrap">
+  <div class="commentWrap"></div>
+  <button class="commentBtn">게시</button>
+</div>
 {% endblock %}
 {% block script %}
+<script>
+  let search = new URL(location.href).searchParams.get('search')
+  console.log(search)
+  $(document).ready(function () {
+    getSearchedInfo()
+  })
+  function getSearchedInfo(){
+
+    $.ajax({
+      type: "GET",
+      url: "/search/movie",
+      data: {
+        'search_give': search
+      },
+      success: function (response) {
+        if (response["result"] == "success") {
+          let row = response['data'][0]
+          console.log(row)
+          let poster = row['poster']
+          let title = row['title']
+          let year = row['year']
+          let director = row['director']
+          let genre = row['genre']
+          let actor = row['actor']
+          let desc = row['desc']
+          let iconurl = row['iconurl']
+          let platformname = row['platformname']
+          let posterTemp = ` <img class="poster" src="${poster}">`
+          $('.poster').append(posterTemp)
+          $('.title').text(`${title}`)
+          $('.year').text(`${year}`)
+          $('.director').text(`${director}`)
+          for (let i = 0; i < genre.length; i++) {
+            $('.genre').append(`${genre[i]}  `)
+          }
+          for (let i = 0; i < actor.length; i++) {
+            if (actor.length - 1 === i) {
+              let temp = `<div class="actor">${actor[i]}</div>`
+              $('.actors').append(temp)
+            } else {
+              let temp = `<div class="actor">${actor[i]}&nbsp&nbsp</div>`
+              $('.actors').append(temp)
+            }
+          }
+          for (let i = 0; i < platformname.length; i++) {
+            console.log(iconurl)
+            console.log("is it work?")
+            let temp = `<div class="platformInfo">
+                           <div class="platformIcon">
+                            <img src="${iconurl[i]}">
+                           </div>
+                           <div class="platformName">${platformname[i]}</div>
+                    </div>`
+            $('.platformDetailWrap').append(temp)
+          }
+          $('.story').text(`${desc}`)
+        }
+      }
+    })
+  }
+</script>
 
 {% endblock %}
 </body>

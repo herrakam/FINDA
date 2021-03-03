@@ -59,7 +59,7 @@
         function getTitlePoster() {
                 $.ajax({
                     type: "GET",
-                    url: `https://apis.justwatch.com/content/titles/ko_KR/popular?body=%7B%22fields%22:[%22id%22,%22title%22,%22full_path%22,%22poster%22,%22object_type%22],%22content_types%22:[%22movie%22],%22monetization_types%22:[%22ads%22,%22buy%22,%22flatrate%22,%22rent%22,%22free%22],%22page%22:21,%22page_size%22:30,%22matching_offers_only%22:false%7D`,
+                    url: `https://apis.justwatch.com/content/titles/ko_KR/popular?body=%7B%22fields%22:[%22id%22,%22title%22,%22full_path%22,%22poster%22,%22object_type%22],%22content_types%22:[%22movie%22],%22monetization_types%22:[%22ads%22,%22buy%22,%22flatrate%22,%22rent%22,%22free%22],%22page%22:20,%22page_size%22:40,%22matching_offers_only%22:false%7D`, //현제 20페이지까지 받음
                     data: {},
                     success: function(response){
                         let rows = response['items']
@@ -106,8 +106,9 @@
                     let genre = []
                     let countActor = 0;
                     let platformName = []
-                    let iconUrl;
+                    let iconUrl=[];
                     let platformProto = []
+                    let iconProto = []
                     for (let i = 0; i < credits.length; i++) {
                         let role = credits[i]['role']
                         if (role === "DIRECTOR"){
@@ -125,7 +126,8 @@
                             if (platformId === platformInfo[j]["id"]){
                                 platformProto.push(platformInfo[j]["clear_name"])
                                 let iconId = platformInfo[j]["icon_url"].split('/')[2]
-                                iconUrl = `https://images.justwatch.com/icon/${iconId}/s100`
+                                iconProto.push(`https://images.justwatch.com/icon/${iconId}/s100`)
+
 
                             }
 
@@ -134,6 +136,8 @@
                     }
                     const set = new Set(platformProto)
                     platformName = [...set]
+                    let iconset = new Set(iconProto)
+                    iconUrl = [...iconset]
 
                     for (let i = 0; i < genreIds.length; i++) {
                         let genreId = genreIds[i]
@@ -144,7 +148,7 @@
 
                         }
                     }
-                    console.log(platformName,actor,genre)
+                    console.log(platformName,iconUrl,genre)
                     // console.log(poster,title,year,director,genre,actor, platformName, iconUrl,desc)
                     $.ajax({
                         type: "POST",
