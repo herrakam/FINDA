@@ -21,7 +21,6 @@
     grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 220px));
     place-content: center;
-
   }
   .resultMovie{
     /*border: 1px solid white;*/
@@ -29,7 +28,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-
   }
   .poster{
     width:200px;
@@ -38,59 +36,63 @@
     border-radius: 5px;
     background-size: cover;
   }
-  .title{
-    border: 1px solid white;
-    width:80%;
-    height: 40px;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-
-  }
 </style>
 {% endblock %}
-
 {% block content %}
 <div class="searchTopWrap">
   <div class="searchTopWord"></div>
 </div>
 <div class="mainWrap">
-
-
-
 </div>
+<button id="next-btn" style="margin-top: 30px" onclick="getNext()">더 보기</button>
 {% endblock %}
-
 {% block script %}
 <script>
-  $(document).ready(function () {
-    getSearchedInfo()
-  })
-
+  let page = 1;
+  let size = 30;
   let search = new URL(location.href).searchParams.get('search')
-  if(search===""){
-    $('.searchTopWord').text(`FINDA의 영화목록`)}
-  else{
-    $('.searchTopWord').text(`'${search}'에 대한 검색 결과`)
+  let recommend = new URL(location.href).searchParams.get('recommend')
+
+
+  // console.log(recommend)
+  // console.log(typeof(recommend))
+  // console.log(search)
+  // console.log(typeof(search))
+  let recommendSplit;
+  if(!search && !recommend){
+    $('.searchTopWord').text(`FINDA의 영화목록`)
+    getSearchedInfo(page, size)
   }
-  let pagecount;
+  else if(!recommend && search){
+    $('.searchTopWord').text(`'${search}'에 대한 검색 결과`)
+    getSearchedInfo(page, size)
+  }
+  else {
+    $('.searchTopWord').text(`'장르가 ${recommend}'인 영화`)
+    recommendSplit = recommend.split(',')
+    getRecommendInfo(page, size)
+  }
 
 
-  function getSearchedInfo(){
-
+  function getNext() {
+    page += 1
+    // size += 1
+    getSearchedInfo(page, size)
+  }
+  function getSearchedInfo(page, size){
     $.ajax({
       type: "GET",
       url: "/search/movie",
       data: {
-        'search_give': search
+        'search_give': search,
+        'page_give': page,
+        'size_give': size
       },
       success: function (response) {
-        if (response["result"] == "success") {
+        if (response["result"] === "success") {
           let rows = response['data']
-          pagecount = 0
-          for (let i = pagecount; i < rows.length; i++) {
+          const total = response['total']
+          for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
             searchedPoster = row['poster']
             searchedTitle = row['title']
@@ -101,17 +103,50 @@
                             </a>
                          </div>`
             $('.mainWrap').append(temp)
-            pagecount++
-            if(pagecount>=30){
-              return
+            if ((page + 1) * size > total) {
+              // 마지막 페이지인 경우
+              $('#next-btn').hide()
             }
           }
         }
       }
     })
+  }
 
-
+  function getRecommendInfo(page, size){
+    $.ajax({
+      type: "GET",
+      url: "/recommend/movie",
+      data: {
+        'recommend_give': recommendSplit,
+        'page_give': page,
+        'size_give': size
+      },
+      success: function (response) {
+        if (response["result"] === 'success'){
+                    let rows = response['data']
+          const total = response['total']
+          for (let i = 0; i < rows.length; i++) {
+            let row = rows[i]
+            searchedPoster = row['poster']
+            searchedTitle = row['title']
+            searchedgenre = row['genre']
+            console.log(searchedgenre)
+            let temp = `
+                         <div class="resultMovie">
+                            <a href="/detail?search=${searchedTitle}">
+                              <img class="poster" src="${searchedPoster}">
+                            </a>
+                         </div>`
+            $('.mainWrap').append(temp)
+            if ((page + 1) * size > total) {
+              // 마지막 페이지인 경우
+              $('#next-btn').hide()
+            }
+          }
+        }
+      }
+    })
   }
 </script>
-
 {% endblock %}

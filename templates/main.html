@@ -164,10 +164,10 @@
 </div>
 <div class="bottomBody">
     <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
-    <div class="recommendBarWrap" onmouseover="getGenreBar()" onmouseout="hideRecommend()">
+    <div class="recommendBarWrap" onmouseenter="getGenreBar()" onmouseleave="hideRecommend()">
         <div class="barBottomWrap">
             <div class="recommendBar"></div>
-            <button class="reccomendBtn" type="button">버튼</button>
+            <button class="reccomendBtn" type="button" onclick="getRecommendUrl()">버튼</button>
         </div>
         <div class="recommendBox">
             <div class="genrebox action" >액션</div>
@@ -312,5 +312,16 @@
     $(document).on('click', '.selectedGenre', function(e) {
         $(e.target).remove()
     })
+
+    function getRecommendUrl(){
+        const recommendArray = []
+        for (let i = 0; i < $('.selectedGenre').length; i++) {
+            let selectedText = $('.selectedGenre').eq(i).text()
+            recommendArray.push(selectedText)
+        }
+        let recommendString = recommendArray.join()
+        const recommendUrl = `/search?recommend=${recommendString}`
+        location.href = recommendUrl
+    }
 </script>
 </html>

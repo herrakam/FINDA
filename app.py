@@ -52,9 +52,31 @@ def post_db():
 
 @app.route('/search/movie', methods=['GET'])
 def get_search_data():
-    search_receive = request.args.get('search_give')
-    search_list = list(db.movie.find({'$or':[ {'title': {'$regex': search_receive}}]},{'_id': False}))
-    return jsonify({'result': 'success', 'data': search_list})
+    search_receive = request.args.get('search_give', '')
+    page_receive = int(request.args.get('page_give', 1))
+    size_receive = int(request.args.get('size_give', 30))
+    n_skip = size_receive * (page_receive - 1)
+    total = db.movie.count()
+    search_list = list(db.movie.find({
+        '$or': [{'title': {'$regex': search_receive}}]
+    }, {
+        '_id': False
+    }).skip(n_skip).limit(size_receive))
+    return jsonify({'result': 'success', 'data': search_list, 'total': total})
+
+@app.route('/recommend/movie', methods=['GET'])
+def get_recommend_data():
+    recommend_receive = request.args.getlist('recommend_give[]')
+    page_receive = int(request.args.get('page_give', 1))
+    size_receive = int(request.args.get('size_give', 30))
+    n_skip = size_receive * (page_receive - 1)
+    total = db.movie.count()
+    recommend_list = list(db.movie.find({
+        '$and': [{'genre': {'$in': recommend_receive}}]
+    }, {
+        '_id': False
+    }).skip(n_skip).limit(size_receive))
+    return jsonify({'result': 'success', 'data': recommend_list, 'total': total})
 
 
 
