@@ -72,11 +72,15 @@ def get_recommend_data():
     n_skip = size_receive * (page_receive - 1)
     total = db.movie.count()
     recommend_list = list(db.movie.find({
-        '$and': [{'genre': {'$in': recommend_receive}}]
+        '$and': [
+            {'genre': {'$in': [recommend]}} for recommend in recommend_receive
+        ]
     }, {
         '_id': False
     }).skip(n_skip).limit(size_receive))
     return jsonify({'result': 'success', 'data': recommend_list, 'total': total})
+
+
 
 
 

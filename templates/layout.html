@@ -23,19 +23,29 @@
             height: 60px;
         }
         .header{
-            background: #202020;
+            background: rgba(0,0,0,0.8);
             width: 100%;
             position: fixed;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 10;
+            transition: 0.5s;
+            /*opacity: 0.5;*/
         }
         .headerLeft{
             display: flex;
-            width: 220px;
+            width: 400px;
             /*grid-template-columns: 30% 70%;*/
-            justify-content: space-between;
+            /*justify-content: space-between;*/
             align-items: center;
+        }
+        .homeBtn{
+            margin: 0 0 0 30px;
+            display: flex;
+            width:30%;
+            justify-content: space-between;
+            /*border: 1px solid white;*/
         }
         .headerLeft > *{
             color:white;
@@ -101,7 +111,7 @@
             width: 120px;
             padding: 0 6px;
         }
-        .goHome{
+        .goHome, .goList{
             color: white;
             text-decoration-line: none;
         }
@@ -132,15 +142,15 @@
     {% endblock %}
 </head>
 <body>
-<div class="header">
+<div class="header" onmouseover="changeColor()" onmouseout="resetColor()">
     <div class="headerLeft">
         <div class="logoAndName">
             <i class="fas fa-film fa-2x"></i>
             <div class="siteName"><h1>FINDA</h1></div>
         </div>
-
         <div class="homeBtn">
-            <a href="/" class="goHome">home</a>
+            <a href="/" class="goHome">Home</a>
+            <a href="/search" class="goList">Movie</a>
         </div>
     </div>
     <div class="search-box">
@@ -162,6 +172,12 @@
     function headersearch(){
         let headersearch = $('.search-txt').val()
         $('.search-btn').attr("href", `/search?search=${headersearch}`)
+    }
+    function changeColor(){
+        $('.header').css('background','#202020')
+    }
+    function resetColor(){
+         $('.header').css('background','rgba(0,0,0,0.8)')
     }
 </script>
 {% block script %}
