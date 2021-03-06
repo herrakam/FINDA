@@ -153,20 +153,65 @@
     min-height: 200px;
     /*border: 1px solid white;*/
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+
   }
   .commentWrap{
-    width:80%;
-    min-height: 180px;
-    border: 1px solid white;
+    width:90%;
+    /*height: 100px;*/
+    /*border: 1px solid white;*/
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    margin: 0 0 20px 0;
+  }
+  .inputcomment{
+    width:90%;
+    height: 50px;
+    /*border: 1px solid white;*/
+    margin: 0 10px 0 0;
+    /*box-shadow: 0 0 3px white;*/
+
+    color: white;
+    /*padding: 5px 0 0 5px*/
+  }
+  .commentplace{
+    width:100%;
+    height: 50px;
+    background: #202020;
+    color: white;
+
+  }
+  .btnwrap{
+    width:10%;
+    height: 50px;
+    display: grid;
+    align-items: end;
+    /*border: 1px solid white;*/
+    margin: 2px 0 0 0;
   }
   .commentBtn{
-    width:10%;
+    width:100%;
     height: 35px;
     background:#313131;
     line-height: 50%;
     border: none;
     border-radius: 5px;
+  }
+  .reviews-box{
+    margin: 30px 0 0 0;
+    width: 90%;
+    /*border: 1px solid white;*/
+    display: grid;
+    place-content: start start;
+    grid-auto-columns: 1fr;
+    grid-gap: 10px;
+  }
+  .reviewline{
+    width:100%;
+    border-bottom: 2px solid white;
+    margin:5px 0 5px 0;
   }
   .bgposter{
     width:100%;
@@ -228,16 +273,24 @@
 </div>
 <div class="review">한줄평</div>
 <div class="bottomWrap">
-  <div class="commentWrap"></div>
-  <button class="commentBtn">게시</button>
+  <div class="commentWrap">
+    <div class="inputcomment">
+      <input type="text" placeholder="영화에 대한 의견을 남겨주세요" class="commentplace">
+    </div>
+    <div class="btnwrap">
+      <button class="commentBtn" onclick="makeReview()">게시하기</button>
+    </div>
+  </div>
+  <div class="reviews-box"></div>
 </div>
 {% endblock %}
 {% block script %}
 <script>
-  let search = new URL(location.href).searchParams.get('search')
-  console.log(search)
+  const search = new URL(location.href).searchParams.get('search')
+  // console.log(search)
   $(document).ready(function () {
     getSearchedInfo()
+    showReview()
   })
   function getSearchedInfo(){
 
@@ -250,7 +303,7 @@
       success: function (response) {
         if (response["result"] == "success") {
           let row = response['data'][0]
-          console.log(row)
+          // console.log(row)
           let poster = row['poster']
           let title = row['title']
           let year = row['year']
@@ -258,6 +311,7 @@
           let genre = row['genre']
           let actor = row['actor']
           let desc = row['desc']
+          let reviews = row['reviews']
           let iconurl = row['iconurl']
           let platformname = row['platformname']
           let posterTemp = ` <img class="poster" src="${poster}">`
@@ -282,8 +336,7 @@
             }
           }
           for (let i = 0; i < platformname.length; i++) {
-            console.log(iconurl)
-            console.log("is it work?")
+            // console.log(iconurl)
             let temp = `<div class="platformInfo">
                            <div class="platformIcon">
                             <img src="${iconurl[i]}">
@@ -293,6 +346,38 @@
             $('.platformDetailWrap').append(temp)
           }
           $('.story').text(`${desc}`)
+          for (let i = 0; i < reviews.length; i++) {
+            let review = reviews[i]
+            let tempHtml = `<div class="reviewline">
+                        ${review}
+                   </div>`;
+            $(".reviews-box").append(tempHtml);
+          }
+
+        }
+      }
+    })
+  }
+  function makeReview() {
+    let review = $('.commentplace').val()
+    let title = search
+    console.log(title)
+    if(review === ''){
+      alert('내용을 입력해주세요')
+      $('.commentplace').focus()
+      return
+    }
+    $.ajax({
+      type: "POST",
+      url:  "/review",
+      data: {
+        'review_give' : review,
+        'title_give' : title
+      },
+      success: function (response) {
+        if (response["result"] == "success") {
+          alert(response["msg"] );
+          window.location.reload();
         }
       }
     })

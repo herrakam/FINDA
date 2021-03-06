@@ -34,6 +34,7 @@ def post_db():
    platformname_receive = request.form.getlist('platformName_give[]')
    iconurl_receive = request.form.getlist('iconUrl_give[]')
    desc_receive = request.form['desc_give']
+   # reviews_receive = request.form.getlist('reviews_give[]')
 
    doc = {
        'poster': poster_receive,
@@ -80,7 +81,12 @@ def get_recommend_data():
     }).skip(n_skip).limit(size_receive))
     return jsonify({'result': 'success', 'data': recommend_list, 'total': total})
 
-
+@app.route('/review', methods=['POST'])
+def write_review():
+    review_receive = request.form['review_give']
+    title_receive = request.form['title_give']
+    db.movie.update({'title':title_receive},{'$push' : {'reviews':review_receive}})
+    return jsonify({'result': 'success', 'msg': '리뷰가 성공적으로 작성되었습니다.'})
 
 
 
