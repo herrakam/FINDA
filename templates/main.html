@@ -1,134 +1,134 @@
 {% extends 'layout.html' %}
 {% block style %}
 <style>
-        body >* {
-            width:100%;
+    body >* {
+        width:100%;
 
-        }
-        .header, .footer{
-            height: 50px;
-        }
-        .header{
-         display: none;
-        }
-        .topBody, .bottomBody{
-            width: 100%;
-            height:100vh;
-            min-height: 100vh;
-            background: blue;
-            display: flex;
-            align-items: center;
-            line-height: 40%;
-            flex-direction: column;
+    }
+    .header{
+        display: none;
+    }
+    .bodyWrap{
+        padding: 0 0 0 0;
+    }
+    .topBody, .bottomBody{
+        width: 100%;
+        height:100vh;
+        min-height: 100vh;
+        background: blue;
+        display: flex;
+        align-items: center;
+        line-height: 40%;
+        flex-direction: column;
 
-        }
-        .bottomBody{
-            background: yellow;
-            /*justify-content: space-evenly;*/
-        }
-        .topWord{
-            margin-top: 140px;
-            height:20%;
-        }
-        .searchbarWrap, .recommendBarWrap{
-            width:85%;
-            height: 50px;
+    }
+    .bottomBody{
+        background: yellow;
+        /*justify-content: space-evenly;*/
+    }
+    .topWord{
+        margin-top: 140px;
+        height:20%;
+    }
+    .searchbarWrap, .recommendBarWrap{
+        width:85%;
+        height: 50px;
 
-        }
+    }
 
 
-        .barTopWrap, .barBottomWrap{
-            display: flex;
-            width:100%;
-            height: 50px;
-        }
-        .searchbar, .recommendBar{
-            width:90%;
-            height: 100%;
-            background: white;
-            opacity: 0.5;
-            /*border: 1px solid black;*/
+    .barTopWrap, .barBottomWrap{
+        display: flex;
+        width:100%;
+        height: 50px;
+    }
+    .searchbar, .recommendBar{
+        width:90%;
+        height: 100%;
+        background: white;
+        opacity: 0.5;
+        /*border: 1px solid black;*/
 
-        }
+    }
 
-        #search{
-            width:90%;
-            height: 100%;
-            background: none;
-            margin: 0 0 0 20px;
-            padding:0;
-            border: none;
-        }
-        #search:focus{
-            outline: none;
-        }
-        #search ::placeholder{
-            color: black;
-        }
-        .searchBtn, .reccomendBtn{
-            width:10%;
-            height: 100%;
-            border: 1px solid black;
-            background: darkblue;
-            line-height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .searchResult, .recommendBox{
-            display: none;
-            height:200px;
-            width: 100%;
-            /*border: 1px solid black;*/
-            margin:0;
-            padding-top: 10px;
-            transition: 1s;
-            background: white;
-            align-items: center;
+    #search{
+        width:90%;
+        height: 100%;
+        background: none;
+        margin: 0 0 0 20px;
+        padding:0;
+        border: none;
+    }
+    #search:focus{
+        outline: none;
+    }
+    #search ::placeholder{
+        color: black;
+    }
+    .searchBtn, .reccomendBtn{
+        width:10%;
+        height: 100%;
+        border: 1px solid black;
+        background: darkblue;
+        line-height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .searchResult, .recommendBox{
+        display: none;
+        height:200px;
+        width: 100%;
+        /*border: 1px solid black;*/
+        margin:0;
+        padding-top: 10px;
+        transition: 1s;
+        background: white;
+        align-items: center;
 
-        }
-        .searchboxLine{
-            width:100%;
-            height: 10px;
-            border-bottom: 2px solid gray;
-        }
-        .resultBoxText{
-            height: 40px;
-            width:100%;
-            background: skyblue;
-            line-height: 40px;
-        }
-        .recommendWord{
-            margin-top: 140px;
-            height:20%;
-        }
-        .recommendBox{
-            /*display: grid;*/
-            justify-content: space-around;
-            grid-gap:5px;
-            grid-template-columns: repeat(6,1fr);
-            /*height: 250px;*/
-        }
-        .genrebox{
-            border: 1px solid blue;
-            height: 50px;
-            display: grid;
-            place-content: center center;
-        }
-        .recommendBar{
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            grid-auto-rows:100% ;
-            grid-gap: 10px;
-            justify-content: space-evenly;
-        }
-        .selectedGenre{
-            display: grid;
-            place-content: center center;
-            border: 1px solid blue;
-        }
+    }
+    .searchboxLine{
+        width:100%;
+        height: 10px;
+        border-bottom: 2px solid gray;
+    }
+    .resultBoxText{
+        height: 40px;
+        width:100%;
+        background: skyblue;
+        line-height: 40px;
+    }
+    .recommendWord{
+        margin-top: 140px;
+        height:20%;
+    }
+    .recommendBox{
+        /*display: grid;*/
+        justify-content: space-around;
+        grid-gap:5px;
+        grid-template-columns: repeat(6,1fr);
+        /*height: 250px;*/
+    }
+    .genrebox{
+        border: 1px solid blue;
+        height: 50px;
+        display: grid;
+        place-content: center center;
+    }
+    .recommendBar{
+        display: grid;
+        grid-template-columns: repeat(4,1fr);
+        grid-auto-rows:100% ;
+        grid-gap: 10px;
+        justify-content: space-evenly;
+    }
+    .selectedGenre{
+        display: grid;
+        place-content: center center;
+        border: 1px solid blue;
+    }
 
-    </style>
+</style>
 {% endblock %}
 {% block content %}
 <div class="topBody">
@@ -178,6 +178,9 @@
 {% block script %}
 <script>
     let timer, searchedTitle;
+    $(window).scroll(function (){
+        showHeader()
+    })
     function searchEngine() {
         $('.searchResult').show()
         let search =$('#search').val()
@@ -314,6 +317,19 @@
         let recommendString = recommendArray.join()
         const recommendUrl = `/search?recommend=${recommendString}`
         location.href = recommendUrl
+    }
+    function showHeader(){
+        let scrollLocation = document.documentElement.scrollTop
+        let headerHeight = $('.header').outerHeight()
+        console.log(scrollLocation, headerHeight)
+        if(scrollLocation>headerHeight){
+            console.log('해더 함수 실행중')
+            $('.header').slideDown()
+            $('.header').css('display','flex')
+        }
+        else{
+            $('.header').slideUp()
+        }
     }
 </script>
 {% endblock %}
