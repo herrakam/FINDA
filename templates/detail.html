@@ -29,7 +29,7 @@
     /*box-shadow:  0 -30px 20px 10px black;*/
     /*border: 1px solid white;*/
     /*min-height: 800px;*/
-    /*min-width: 90%;*/
+    /*min-width: 1030px*/
   }
   .poster{
     width:300px;
@@ -95,9 +95,16 @@
     display: grid;
     grid-auto-rows: 30px;
     grid-template-columns: repeat(5,minmax(max-content,max-content));
+    overflow-x: scroll;
+    overflow-y: hidden;
+
   }
-  .actor{
-    /*border: 1px solid white;*/
+  .actors::-webkit-scrollbar{
+    height: 5px;
+    background: #202020;
+  }
+  .actors::-webkit-scrollbar-thumb{
+    background: black;
   }
   .platformInfoWrap{
     width:100%;
