@@ -71,21 +71,26 @@
     recommendSplit = recommend.split(',')
     getRecommendInfo(page, size)
   }
-  setInterval(function() {
+  function scrollEvent(){
+    setInterval(function() {
     if (scroll) {
-      scrollEvent();
+      addPage();
       scroll = false;
     }
   }, 250);
+  }
 
-  function scrollEvent(){
+
+  function addPage(){
     let scrollLocation = document.documentElement.scrollTop
     // console.log(scrollLocation);
     let windowHeight = window.innerHeight;
+    // console.log(windowHeight)
     let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
-    if(scrollLocation + windowHeight >= fullHeight){
+    if(scrollLocation + windowHeight >= fullHeight-10){
       console.log('스크롤 다 내려감')
       getNext()
+      return
     }
 
   }
