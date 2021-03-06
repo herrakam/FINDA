@@ -10,12 +10,17 @@
     }
     .bodyWrap{
         padding: 0 0 0 0;
+        /*background-image: url("https://i.pinimg.com/564x/4b/9e/de/4b9edeee07cc0c1072f2bbac563d021c.jpg");*/
+        background: linear-gradient(to bottom, transparent, black),
+        url("https://wallpapercave.com/wp/wp1832706.jpg");
+        background-size: cover;
+        background-repeat: no-repeat;
     }
     .topBody, .bottomBody{
         width: 100%;
         height:100vh;
         min-height: 100vh;
-        background: blue;
+        background: none;
         display: flex;
         align-items: center;
         line-height: 40%;
@@ -23,12 +28,16 @@
 
     }
     .bottomBody{
-        background: yellow;
+        /*background: yellow;*/
         /*justify-content: space-evenly;*/
     }
     .topWord{
         margin-top: 140px;
         height:20%;
+    }
+    .topWord,.recommendWord{
+        color: white;
+        font-size: 30px;
     }
     .searchbarWrap, .recommendBarWrap{
         width:85%;
@@ -43,11 +52,12 @@
         height: 50px;
     }
     .searchbar, .recommendBar{
-        width:90%;
+        width:100%;
         height: 100%;
-        background: white;
-        opacity: 0.5;
+        background: rgba(255, 255, 255, 0.5);
+        /*opacity: 0.5;*/
         /*border: 1px solid black;*/
+        border-radius: 10px 0 0 10px;
 
     }
 
@@ -66,36 +76,48 @@
         color: black;
     }
     .searchBtn, .reccomendBtn{
-        width:10%;
+        width:90px;
         height: 100%;
-        border: 1px solid black;
-        background: darkblue;
+        /*border: 1px solid #181818 ;*/
+        background: rgba(255, 255, 255, 0.5);;
         line-height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        border-radius: 0 10px 10px 0;
+        transition: 1s;
+    }
+    .fa-search{
+        color: darkslategray;
+    }
+    .searchBtn:hover, .reccomendBtn:hover{
+        background: #181818;
+
     }
     .searchResult, .recommendBox{
+        background: rgba(255, 255, 255, 0.5);
         display: none;
         height:200px;
         width: 100%;
         /*border: 1px solid black;*/
-        margin:0;
         padding-top: 10px;
         transition: 1s;
-        background: white;
         align-items: center;
+        border-radius: 0 0 10px 10px;
 
+    }
+    .showSearchTitle{
+        text-decoration: none;
     }
     .searchboxLine{
         width:100%;
         height: 10px;
-        border-bottom: 2px solid gray;
+        /*border-bottom: 2px solid white;*/
     }
     .resultBoxText{
         height: 40px;
         width:100%;
-        background: skyblue;
+        /*background: skyblue;*/
         line-height: 40px;
     }
     .recommendWord{
@@ -103,17 +125,17 @@
         height:20%;
     }
     .recommendBox{
-        /*display: grid;*/
+        background: rgba(255, 255, 255, 0.5);
         justify-content: space-around;
         grid-gap:5px;
         grid-template-columns: repeat(6,1fr);
-        /*height: 250px;*/
     }
     .genrebox{
-        border: 1px solid blue;
+        border: 1px solid darkslategray;
         height: 50px;
         display: grid;
         place-content: center center;
+        transition: 1s;
     }
     .recommendBar{
         display: grid;
@@ -127,6 +149,9 @@
         place-content: center center;
         border: 1px solid blue;
     }
+    .footer{
+        background: black;
+    }
 
 </style>
 {% endblock %}
@@ -138,7 +163,7 @@
             <div class="searchbar">
                 <input type="text" id="search" onkeyup="searchEngine(), goSearch()" onfocusout="hideSearch()"  oncplaceholder="찾고 싶은 영화를 입력해주세요">
             </div>
-            <button class="searchBtn" type="button" onclick="getInfoUrl()">버튼</button>
+            <div class="searchBtn" type="button" onclick="getInfoUrl()"><i class="fas fa-search fa-2x"></i></div>
         </div>
         <div class="searchResult"></div>
     </div>
@@ -146,42 +171,46 @@
 
 </div>
 <div class="bottomBody">
-    <div class="recommendWord">클릭 몇번으로 내게 딱맞는 영화를 찾아보세요!</div>
+    <div class="recommendWord">장르를 골라 인생 영화를 찾아보세요!</div>
     <div class="recommendBarWrap" onmouseenter="getGenreBar()" onmouseleave="hideRecommend()">
         <div class="barBottomWrap">
             <div class="recommendBar"></div>
-            <button class="reccomendBtn" type="button" onclick="getRecommendUrl()">버튼</button>
+            <div class="reccomendBtn" type="button" onclick="getRecommendUrl()"><i class="fas fa-search fa-2x"></i></div>
         </div>
         <div class="recommendBox">
-            <div class="genrebox action" >액션</div>
-            <div class="genrebox animation" >애니메이션</div>
-            <div class="genrebox comedy" >코미디</div>
-            <div class="genrebox crime" >범죄</div>
-            <div class="genrebox documentation" >다큐멘터리</div>
-            <div class="genrebox drama" >드라마</div>
-            <div class="genrebox fantasy" >판타지</div>
-            <div class="genrebox history" >역사</div>
-            <div class="genrebox horror" >공포</div>
-            <div class="genrebox family" >가족</div>
-            <div class="genrebox music" >음악</div>
-            <div class="genrebox thriller" >스릴러</div>
-            <div class="genrebox romance" >로맨스</div>
-            <div class="genrebox sf" >SF</div>
-            <div class="genrebox sport" >스포츠</div>
-            <div class="genrebox war" >전쟁</div>
-            <div class="genrebox western" >서부</div>
-            <div class="genrebox european">Made in Europe</div>
+            <div class="genrebox 액션" >액션</div>
+            <div class="genrebox 애니메이션" >애니메이션</div>
+            <div class="genrebox 코미디" >코미디</div>
+            <div class="genrebox 범죄" >범죄</div>
+            <div class="genrebox 다큐멘터리" >다큐멘터리</div>
+            <div class="genrebox 드라마" >드라마</div>
+            <div class="genrebox 판타지" >판타지</div>
+            <div class="genrebox 역사" >역사</div>
+            <div class="genrebox 공포" >공포</div>
+            <div class="genrebox 가족" >가족</div>
+            <div class="genrebox 음악" >음악</div>
+            <div class="genrebox 스릴러" >스릴러</div>
+            <div class="genrebox 로맨스" >로맨스</div>
+            <div class="genrebox SF" >SF</div>
+            <div class="genrebox 스포츠" >스포츠</div>
+            <div class="genrebox 전쟁" >전쟁</div>
+            <div class="genrebox 서부" >서부</div>
+            <div class="genrebox Made in Europe">Made in Europe</div>
         </div>
     </div>
 </div>
 {% endblock %}
 {% block script %}
 <script>
+
+
     let timer, searchedTitle;
     $(window).scroll(function (){
         showHeader()
     })
     function searchEngine() {
+        $('.searchBtn').css('border-radius', '0 10px 0 0')
+        $('.searchbar').css('border-radius', '10px 0 0 0')
         $('.searchResult').show()
         let search =$('#search').val()
         $('.searchResult').empty()
@@ -203,11 +232,12 @@
                     if (response["result"] == "success") {
                         $('.searchResult').empty()
                         $('.searchResult').css('height','200px')
+
                         let rows = response['data']
                         for (let i = 0; i < rows.length; i++) {
                             let row = rows[i]
                             searchedTitle = row['title']
-                            let temp = `<div class="resultBoxText"><a href="/detail?search=${searchedTitle}">${searchedTitle}</a></div><div class = "searchboxLine"></div>`
+                            let temp = `<div class="resultBoxText"><a class="showSearchTitle" href="/detail?search=${searchedTitle}">${searchedTitle}</a></div><div class = "searchboxLine"></div>`
                             $('.searchResult').append(temp)
                             if ($('#search').val() === ""){
                                 hideSearch()
@@ -231,6 +261,8 @@
 
     function hideSearch(){
         setTimeout(function (){
+            $('.searchBtn').css('border-radius', '0 10px 10px 0')
+            $('.searchbar').css('border-radius', '10px 0 0 10px')
             $('.searchResult').empty()
             $('.searchResult').css('padding-top',0)
             $('.searchResult').css('border','none')
@@ -248,6 +280,8 @@
     }
 
     function getGenreBar(){
+        $('.reccomendBtn').css('border-radius', '0 10px 0 0')
+        $('.recommendBar').css('border-radius', '10px 0 0 0')
         setTimeout(function (){
             $('.recommendBox').show()
             $('.recommendBox').animate({height:'200px'},500)
@@ -261,6 +295,8 @@
 
     function hideRecommend(){
         setTimeout(function (){
+            $('.reccomendBtn').css('border-radius', '0 10px 10px 0')
+            $('.recommendBar').css('border-radius', '10px 0 0 10px')
             $('.recommendBox').css('padding-top',0)
             $('.genrebox').css('display','none')
             $('.recommendBox').css('border','none')
@@ -272,6 +308,8 @@
     $(document).on('click', '.genrebox', function(e) {
         let genreValArray = []
         let genreVal = $(this).text()
+        $(this).css('background','darkslategray')
+        $(this).css('color','white')
         let temp = `<div class="selectedGenre">${genreVal}</div>`
         genreValArray.push(genreVal)
         for (let i = 0; i < $('.selectedGenre').length; i++) {
@@ -306,6 +344,10 @@
     })
     $(document).on('click', '.selectedGenre', function(e) {
         $(e.target).remove()
+        let removedgenre =  $(e.target).text()
+        console.log(removedgenre)
+        let findGenre = $('.recommendBox').find(`.${removedgenre}`)
+        findGenre.css('background','none')
     })
 
     function getRecommendUrl(){
@@ -323,7 +365,6 @@
         let headerHeight = $('.header').outerHeight()
         console.log(scrollLocation, headerHeight)
         if(scrollLocation>headerHeight){
-            console.log('해더 함수 실행중')
             $('.header').slideDown()
             $('.header').css('display','flex')
         }
@@ -331,5 +372,8 @@
             $('.header').slideUp()
         }
     }
+
+
+
 </script>
 {% endblock %}
