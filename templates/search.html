@@ -49,9 +49,9 @@
 {% block script %}
 <script>
   let scroll;
+  let is_loading = false;
   $(window).scroll(function (){
-    scroll = true
-    scrollEvent()
+    addPage()
   })
   let page = 1;
   let size = 30;
@@ -71,31 +71,19 @@
     recommendSplit = recommend.split(',')
     getRecommendInfo(page, size)
   }
-  function scrollEvent(){
-    setInterval(function() {
-    if (scroll) {
-      addPage();
-      scroll = false;
-    }
-  }, 250);
-  }
-
-
   function addPage(){
     let scrollLocation = document.documentElement.scrollTop
-    // console.log(scrollLocation);
     let windowHeight = window.innerHeight;
-    // console.log(windowHeight)
     let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
     if(scrollLocation + windowHeight >= fullHeight-10){
       console.log('스크롤 다 내려감')
-      getNext()
+      if (!is_loading) {
+        is_loading = true
+        getNext()
+      }
       return
     }
-
   }
-
-
   function getNext() {
     page += 1
     getSearchedInfo(page, size)
@@ -110,6 +98,7 @@
         'size_give': size
       },
       success: function (response) {
+        is_loading = false;
         if (response["result"] === "success") {
           let rows = response['data']
           const total = response['total']
@@ -133,7 +122,6 @@
       }
     })
   }
-
   function getRecommendInfo(page, size){
     $.ajax({
       type: "GET",
