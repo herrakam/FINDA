@@ -48,16 +48,15 @@
 {% endblock %}
 {% block script %}
 <script>
+  let scroll;
+  $(window).scroll(function (){
+    scroll = true
+    scrollEvent()
+  })
   let page = 1;
   let size = 30;
   let search = new URL(location.href).searchParams.get('search')
   let recommend = new URL(location.href).searchParams.get('recommend')
-
-
-  // console.log(recommend)
-  // console.log(typeof(recommend))
-  // console.log(search)
-  // console.log(typeof(search))
   let recommendSplit;
   if(!search && !recommend){
     $('.searchTopWord').text(`FINDA의 영화목록`)
@@ -72,11 +71,28 @@
     recommendSplit = recommend.split(',')
     getRecommendInfo(page, size)
   }
+  setInterval(function() {
+    if (scroll) {
+      scrollEvent();
+      scroll = false;
+    }
+  }, 250);
+
+  function scrollEvent(){
+    let scrollLocation = document.documentElement.scrollTop
+    // console.log(scrollLocation);
+    let windowHeight = window.innerHeight;
+    let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
+    if(scrollLocation + windowHeight >= fullHeight){
+      console.log('스크롤 다 내려감')
+      getNext()
+    }
+
+  }
 
 
   function getNext() {
     page += 1
-    // size += 1
     getSearchedInfo(page, size)
   }
   function getSearchedInfo(page, size){
@@ -124,7 +140,7 @@
       },
       success: function (response) {
         if (response["result"] === 'success'){
-                    let rows = response['data']
+          let rows = response['data']
           const total = response['total']
           for (let i = 0; i < rows.length; i++) {
             let row = rows[i]

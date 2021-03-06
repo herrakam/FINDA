@@ -109,7 +109,6 @@
                     let iconUrl=[];
                     let platformProto = []
                     let iconProto = []
-                    // let reviews = ['댓글 시험용']
                     for (let i = 0; i < credits.length; i++) {
                         let role = credits[i]['role']
                         if (role === "DIRECTOR"){
@@ -163,7 +162,6 @@
                             'actor_give':actor,
                             'iconUrl_give':iconUrl,
                             'desc_give':desc,
-                            // 'reviews_give':reviews
                         },
                         success: function (response) {
                             if (response["result"] == "success") {

@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <title>Document</title>
     <style>
@@ -173,12 +173,18 @@
         let headersearch = $('.search-txt').val()
         $('.search-btn').attr("href", `/search?search=${headersearch}`)
     }
+    function headerSearchKeyboard(){
+         let headersearch = $('.search-txt').val()
+        location.href = `/search?search=${headersearch}`
+    }
     function changeColor(){
         $('.header').css('background','#202020')
     }
     function resetColor(){
-         $('.header').css('background','rgba(0,0,0,0.8)')
+        $('.header').css('background','rgba(0,0,0,0.8)')
     }
+    $(".search-txt").keyup(function(e){if(e.keyCode == 13)headerSearchKeyboard();});
+
 </script>
 {% block script %}
 
