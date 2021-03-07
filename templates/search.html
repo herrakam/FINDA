@@ -35,6 +35,7 @@
     /*border: 1px solid white;*/
     border-radius: 5px;
     background-size: cover;
+    transition: 0.5s;
   }
 </style>
 {% endblock %}
@@ -156,5 +157,13 @@
       }
     })
   }
+   $(document).on('mouseover', '.poster', function (e){
+    $(this).css('width','220')
+    $(this).css('height','340')
+  })
+  $(document).on('mouseout', '.poster', function (e){
+    $(this).css('width','200')
+    $(this).css('height','300')
+  })
 </script>
 {% endblock %}

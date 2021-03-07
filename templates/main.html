@@ -11,10 +11,11 @@
     .bodyWrap{
         padding: 0 0 0 0;
         /*background-image: url("https://i.pinimg.com/564x/4b/9e/de/4b9edeee07cc0c1072f2bbac563d021c.jpg");*/
-        background: linear-gradient(to bottom, transparent, black),
+        background: linear-gradient(black, transparent, black),
         url("https://wallpapercave.com/wp/wp1832706.jpg");
         background-size: cover;
         background-repeat: no-repeat;
+        filter: brightness(90%);
     }
     .topBody, .bottomBody{
         width: 100%;
@@ -38,6 +39,7 @@
     .topWord,.recommendWord{
         color: white;
         font-size: 30px;
+        font-weight: bold;
     }
     .searchbarWrap, .recommendBarWrap{
         width:85%;
@@ -68,6 +70,8 @@
         margin: 0 0 0 20px;
         padding:0;
         border: none;
+        font-size: 20px;
+        font-weight: bold;
     }
     #search:focus{
         outline: none;
@@ -133,11 +137,12 @@
         grid-template-columns: repeat(6,1fr);
     }
     .genrebox{
-        border: 1px solid darkslategray;
+        border: 2px solid darkslategray;
         height: 50px;
         display: grid;
         place-content: center center;
         transition: 1s;
+        border-radius: 10px;
     }
     .recommendBar{
         display: grid;
@@ -149,7 +154,9 @@
     .selectedGenre{
         display: grid;
         place-content: center center;
-        border: 1px solid blue;
+        background: darkslategray;
+        color: white;
+        border-radius: 10px;
     }
     .footer{
         background: black;
@@ -204,7 +211,6 @@
 {% endblock %}
 {% block script %}
 <script>
-
 
     let timer, searchedTitle;
     $(window).scroll(function (){
@@ -334,11 +340,15 @@
         }
         if ($('.selectedGenre').text() === genreVal){
             alert('장르는 하나씩만 선택해주세요!!')
+            $(this).css('background','none')
+            $(this).css('color','black')
             return
         }
         else{
             if($('.selectedGenre').length > 3){
                 alert('장르 선택은 4개까지만 가능합니다.')
+                $(this).css('background','none')
+                $(this).css('color','black')
                 return
             }
             $('.recommendBar').append(temp)
@@ -351,6 +361,7 @@
         console.log(removedgenre)
         let findGenre = $('.recommendBox').find(`.${removedgenre}`)
         findGenre.css('background','none')
+        findGenre.css('color','black')
     })
 
     function getRecommendUrl(){
