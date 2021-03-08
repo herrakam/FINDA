@@ -7,8 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gothic+A1:wght@300&family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Fina a movie, FINDA</title>
     <style>
+        *{
+            font-family: 'Nunito Sans', 'Gothic A1', sans-serif;
+        }
         html{
             top:0;
             left:0;
@@ -34,6 +41,7 @@
             /*opacity: 0.5;*/
         }
         .headerLeft{
+            font-family: 'Nunito Sans', sans-serif;
             display: flex;
             width: 400px;
             /*grid-template-columns: 30% 70%;*/
@@ -136,8 +144,16 @@
             justify-content: center;
             align-items: center;
         }
+        .footerwrap{
+            display: flex;
+            width:200px;
+            justify-content: space-between;
+        }
         .eidtor{
             color: #909090;
+        }
+        .github{
+            color:#909090 ;
         }
     </style>
 
@@ -170,7 +186,11 @@
     {% endblock %}
 </div>
 <div class="footer">
-    <div class="eidtor">JungSeungHyun </div>
+    <div class="footerwrap">
+        <div class="eidtor">JungSeungHyun </div>
+        <a class="github" href="https://github.com/herrakam"><i class="fab fa-github fa-2x" ></i></a>
+    </div>
+
 </div>
 <script>
     function headersearch(){
@@ -178,7 +198,7 @@
         $('.search-btn').attr("href", `/search?search=${headersearch}`)
     }
     function headerSearchKeyboard(){
-         let headersearch = $('.search-txt').val()
+        let headersearch = $('.search-txt').val()
         location.href = `/search?search=${headersearch}`
     }
     function changeColor(){

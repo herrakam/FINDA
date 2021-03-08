@@ -22,7 +22,7 @@
   }
   .sorry{
     color: white;
-    font-size: 40px;
+    font-size: 25px;
     /*font-weight: bold;*/
   }
   .sorryimg{
@@ -82,7 +82,6 @@
 {% block script %}
 <script>
   let scroll;
-  let rows =[]
   let is_loading = false;
   $(window).scroll(function (){
     addPage()
@@ -119,9 +118,21 @@
   }
   function getNext() {
     page += 1
-    getSearchedInfo(page, size)
+    console.log(search)
+    console.log(recommend)
+    if(!search && !recommend){
+      getSearchedInfo(page, size)
+    }
+    else if(!recommend && search){
+      getSearchedInfo(page, size)
+    }
+    else{
+      getRecommendInfo(page, size)
+    }
+
   }
   function getSearchedInfo(page, size){
+    console.log('searchedinfo도는중')
     $.ajax({
       type: "GET",
       url: "/search/movie",
@@ -133,12 +144,8 @@
       success: function (response) {
         is_loading = false;
         if (response["result"] === "success") {
-          rows = response['data']
-          // console.log(rows)
-          if (rows.length===0){
-            console.log('1')
-            return
-          }
+          let rows = response['data']
+          checkempty(rows)
           const total = response['total']
           for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
@@ -151,16 +158,14 @@
                             </a>
                          </div>`
             $('.mainWrap').append(temp)
-            if ((page + 1) * size > total) {
-              // 마지막 페이지인 경우
-              $('#next-btn').hide()
-            }
+
           }
         }
       }
     })
   }
   function getRecommendInfo(page, size){
+    console.log('추천정보 가져오는중')
     $.ajax({
       type: "GET",
       url: "/recommend/movie",
@@ -170,20 +175,18 @@
         'size_give': size
       },
       success: function (response) {
+         is_loading = false;
         if (response["result"] === 'success'){
           let rows = response['data']
           console.log(rows)
+          checkempty(rows)
           const total = response['total']
-          if (rows.length===0){
-            console.log('1')
-            return
-          }
           for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
             searchedPoster = row['poster']
             searchedTitle = row['title']
             searchedgenre = row['genre']
-            console.log(row)
+            // console.log(searchedgenre)
             let temp = `
                          <div class="resultMovie">
                             <a href="/detail?search=${searchedTitle}">
@@ -191,23 +194,13 @@
                             </a>
                          </div>`
             $('.mainWrap').append(temp)
-            if ((page + 1) * size > total) {
-              // 마지막 페이지인 경우
-              $('#next-btn').hide()
-            }
           }
+
         }
       }
     })
   }
-  if(rows.length === 0 && !recommend){
-    let sorry = '영화를 찾지 못했습니다...'
-    let temp = `<div class="sorry">${sorry}</div>
-                <img src = "../static/b3fcnnrbp4iaf7epl48ef93vvo-4002569fd195ed02c1467425bb108063.png" class="sorryimg">
-                <button onclick="gohome()" class="gohomebtn" >홈으로 돌아가기</button>  `
-    $('.sorrywrap').append(temp)
-    $('.sorrywrap').css('marginTop','120px')
-  }
+
 
   $(document).on('mouseover', '.poster', function (e){
     $(this).css('width','220')
@@ -220,5 +213,19 @@
   function gohome(){
     location.href = '/'
   }
+  function checkempty(rows){
+    if(rows.length === 0){
+       $('.sorrywrap').empty()
+      console.log('empty함수도는중')
+      let sorry = '영화를 찾지 못했습니다...'
+
+      let temp = `<div class="sorry">${sorry}</div>
+                <img src = "../static/b3fcnnrbp4iaf7epl48ef93vvo-4002569fd195ed02c1467425bb108063.png" class="sorryimg">
+                <button onclick="gohome()" class="gohomebtn" >홈으로 돌아가기</button>  `
+      $('.sorrywrap').append(temp)
+      $('.sorrywrap').css('marginTop','120px')
+    }
+  }
+
 </script>
 {% endblock %}

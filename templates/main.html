@@ -43,7 +43,7 @@
     .topWord,.recommendWord{
         color: white;
         font-size: 30px;
-        font-weight: bold;
+        /*font-weight: bold;*/
         text-align: center;
     }
     .searchbarWrap, .recommendBarWrap{
@@ -148,6 +148,7 @@
         place-content: center center;
         transition: 1s;
         border-radius: 10px;
+        text-align: center;
     }
     .recommendBar{
         padding: 0 0 0 10px;
@@ -267,7 +268,7 @@
                     }
                 }
             })
-        },400)
+        },200)
     }
     function goSearch(){
         if(window.event.keyCode == 13) {
@@ -287,7 +288,7 @@
             $('.searchResult').animate({
                 height:'0px'
             },200)
-        },500)}
+        },200)}
 
     function getInfoUrl(){
         let searchinfo = $('#search').val()

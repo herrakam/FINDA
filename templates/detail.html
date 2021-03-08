@@ -166,8 +166,8 @@
   .similarMoviewrap{
     width: 90%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit,minmax(100px, 1fr));
+    place-content: center;
   }
   .similarPoster{
     width:150px;
