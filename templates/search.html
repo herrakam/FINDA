@@ -13,6 +13,38 @@
     font-size: 40px;
     float: left;
   }
+  .sorrywrap{
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid white;*/
+    flex-direction: column;
+    align-items: center;
+  }
+  .sorry{
+    color: white;
+    font-size: 40px;
+    /*font-weight: bold;*/
+  }
+  .sorryimg{
+    width:300px;
+    height: 300px;
+  }
+  .gohomebtn{
+    display: grid;
+    place-content: center center;
+    width:150px;
+    height: 50px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 50px;
+    transition: 1s;
+    font-weight: bold;
+    background: none;
+  }
+  .gohomebtn:hover{
+    color:#202020;
+    background: white;
+  }
   .mainWrap{
     width:90%;
     height: 70%;
@@ -43,12 +75,14 @@
 <div class="searchTopWrap">
   <div class="searchTopWord"></div>
 </div>
+<div class="sorrywrap"></div>
 <div class="mainWrap">
 </div>
 {% endblock %}
 {% block script %}
 <script>
   let scroll;
+  let rows =[]
   let is_loading = false;
   $(window).scroll(function (){
     addPage()
@@ -76,7 +110,6 @@
     let windowHeight = window.innerHeight;
     let fullHeight = document.body.scrollHeight; //  margin 값은 포함 x
     if(scrollLocation + windowHeight >= fullHeight-10){
-      console.log('스크롤 다 내려감')
       if (!is_loading) {
         is_loading = true
         getNext()
@@ -100,7 +133,12 @@
       success: function (response) {
         is_loading = false;
         if (response["result"] === "success") {
-          let rows = response['data']
+          rows = response['data']
+          // console.log(rows)
+          if (rows.length===0){
+            console.log('1')
+            return
+          }
           const total = response['total']
           for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
@@ -134,13 +172,18 @@
       success: function (response) {
         if (response["result"] === 'success'){
           let rows = response['data']
+          console.log(rows)
           const total = response['total']
+          if (rows.length===0){
+            console.log('1')
+            return
+          }
           for (let i = 0; i < rows.length; i++) {
             let row = rows[i]
             searchedPoster = row['poster']
             searchedTitle = row['title']
             searchedgenre = row['genre']
-            console.log(searchedgenre)
+            console.log(row)
             let temp = `
                          <div class="resultMovie">
                             <a href="/detail?search=${searchedTitle}">
@@ -157,7 +200,16 @@
       }
     })
   }
-   $(document).on('mouseover', '.poster', function (e){
+  if(rows.length === 0 && !recommend){
+    let sorry = '영화를 찾지 못했습니다...'
+    let temp = `<div class="sorry">${sorry}</div>
+                <img src = "../static/b3fcnnrbp4iaf7epl48ef93vvo-4002569fd195ed02c1467425bb108063.png" class="sorryimg">
+                <button onclick="gohome()" class="gohomebtn" >홈으로 돌아가기</button>  `
+    $('.sorrywrap').append(temp)
+    $('.sorrywrap').css('marginTop','120px')
+  }
+
+  $(document).on('mouseover', '.poster', function (e){
     $(this).css('width','220')
     $(this).css('height','340')
   })
@@ -165,5 +217,8 @@
     $(this).css('width','200')
     $(this).css('height','300')
   })
+  function gohome(){
+    location.href = '/'
+  }
 </script>
 {% endblock %}

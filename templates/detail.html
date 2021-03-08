@@ -19,6 +19,8 @@
     position: relative;
     top:-70px;
     background: #181818;
+    /*display: flex;*/
+    /*flex-direction: column;*/
     display: grid;
     justify-content: space-between;
     align-items: center;
@@ -37,12 +39,13 @@
     color:white;
     border: none;
     border-radius: 5px;
-    margin: 0 0 0 10px;
+    margin: 0 0 40px 10px;
   }
   .infoWrap{
     width:100%;
     min-width: 75%;
     align-items: center;
+    /*border: 1px solid white;*/
 
   }
   .infoWrap > *{
@@ -95,7 +98,7 @@
     display: grid;
     grid-auto-rows: 30px;
     grid-template-columns: repeat(5,minmax(max-content,max-content));
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
 
   }
@@ -150,8 +153,15 @@
   /*  border:1px solid white;*/
   /*}*/
   .similarword{
+    display: grid;
+    place-content: center center;
     font-size: 30px;
     color: white;
+    text-align: center;
+  }
+  .sorryimg{
+    width:300px;
+    height: 300px;
   }
   .similarMoviewrap{
     width: 90%;
@@ -205,6 +215,7 @@
     color: white;
     border: 1px solid #202020;
     font-size: 15px;
+    border-radius: 10px;
 
   }
   .btnwrap{
@@ -261,6 +272,31 @@
     /*background-size: cover;*/
     /*background: linear-gradient( to bottom,transparent, black),url("https://images.justwatch.com/poster/193792450/s332/)",'background-repeat' : 'no-repeat');*/
   }
+  @media(max-width:1220px){
+      .actors{
+        overflow-x: scroll;
+      }
+    }
+  @media (max-width: 1150px) {
+    .poster{
+      width:200px;
+      height: 300px;
+      margin: 0 0 120px 10px;
+    }
+
+  }
+  @media (max-width: 980px) {
+    .topWrap{
+      display: flex;
+      flex-direction: column;
+    }
+    .poster{
+      width:300px;
+      height: 400px;
+      margin: 0 0 0 0;
+    }
+
+  }
 
 
 
@@ -299,7 +335,7 @@
     <div class="story"></div>
   </div>
 </div>
-<div class="similarword"></div>
+<div class="similarword">이 영화와 비슷한 영화들</div>
 <div class="similarMoviewrap"></div>
 <div class="review">한줄평</div>
 <div class="bottomWrap">
@@ -349,8 +385,8 @@
           $('.poster').append(posterTemp)
           $('.bgposter').append(bgposterTemp)
           $('.title').text(`${title}`)
-          let similarword = `${title}과 비슷한 영화들`
-          $('.similarword').text(similarword)
+          // let similarword = `${title}과 비슷한 영화들`
+          // $('.similarword').text(similarword)
           $('.year').text(`${year}`)
           $('.director').text(`${director}`)
           for (let i = 0; i < genre.length; i++) {
@@ -366,7 +402,6 @@
             }
           }
           for (let i = 0; i < platformname.length; i++) {
-            // console.log(iconurl)
             let temp = `<div class="platformInfo">
                            <div class="platformIcon">
                             <img src="${iconurl[i]}">
@@ -413,13 +448,7 @@
     })
   }
   $(".commentplace").keyup(function(e){if(e.keyCode == 13)  makeReview(); });
-  if($('.actors').width()> 564){
-    $('.actors').css('overflow-x','hidden')
-    // console.log('스크롤 필요 없음')
-  }
-  else{
-    $('.actors').css('overflow-x','scoll')
-  }
+
   function getSimilarMovie() {
     let thisgenre = []
     let page = 1
@@ -436,6 +465,16 @@
       },
       success: function (response) {
         let rows = response['data']
+        console.log(rows.length)
+        if (rows.length === 1){
+          let sorry = '비슷한 영화를 찾지못했습니다...'
+          let temp = `<div class="similarword">${sorry} </div>
+                       <img src="../static/b3fcnnrbp4iaf7epl48ef93vvo-4002569fd195ed02c1467425bb108063.png" class="sorryimg">     `
+
+          $('.similarword').text("")
+          $('.similarword').css("display",'block')
+          $('.similarword').append(temp)
+        }
         console.log(rows)
         for (let i = 0; i <checknum; i++) {
           let row = rows[i]
@@ -452,7 +491,7 @@
                          </a>
 
                         </div>`
-        $('.similarMoviewrap').append(temp)
+          $('.similarMoviewrap').append(temp)
         }
       }
 

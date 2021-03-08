@@ -24,8 +24,9 @@
         background: none;
         display: flex;
         align-items: center;
-        line-height: 40%;
+        /*line-height: 40%;*/
         flex-direction: column;
+        justify-content: center;
 
     }
     .bottomBody{
@@ -33,13 +34,17 @@
         /*justify-content: space-evenly;*/
     }
     .topWord{
-        margin-top: 140px;
+        /*margin-top: 200px;*/
         height:20%;
+        display: flex;
+        justify-content: center;
+        /*align-items: center;*/
     }
     .topWord,.recommendWord{
         color: white;
         font-size: 30px;
         font-weight: bold;
+        text-align: center;
     }
     .searchbarWrap, .recommendBarWrap{
         width:85%;
@@ -145,11 +150,14 @@
         border-radius: 10px;
     }
     .recommendBar{
+        padding: 0 0 0 10px;
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4,150px);
         grid-auto-rows:100% ;
         grid-gap: 10px;
-        justify-content: space-evenly;
+        /*justify-content:;*/
+        align-items: center;
+        height: 50px;
     }
     .selectedGenre{
         display: grid;
@@ -157,6 +165,7 @@
         background: darkslategray;
         color: white;
         border-radius: 10px;
+        height: 40px;
     }
     .footer{
         background: black;
