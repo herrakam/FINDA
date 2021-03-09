@@ -6,6 +6,8 @@ app = Flask(__name__)
 aws_client = MongoClient('mongodb://test:test@54.180.112.223', 27017)
 db = aws_client.DBFINDA
 
+
+
 @app.route('/')
 def home():
     return render_template('main.html')

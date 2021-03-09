@@ -53,6 +53,9 @@
         height: 50px;
 
     }
+    .recommendBarWrap{
+        border-radius: 10px;
+    }
 
 
     .barTopWrap, .barBottomWrap{
@@ -60,14 +63,25 @@
         width:100%;
         height: 50px;
     }
-    .searchbar, .recommendBar{
+    .searchbar, .barBottomWrap{
         width:100%;
         height: 100%;
         background: rgba(255, 255, 255, 0.5);
-        /*opacity: 0.5;*/
         /*border: 1px solid black;*/
         border-radius: 10px 0 0 10px;
 
+    }
+    .barBottomWrap{
+        border-radius: 10px;
+    }
+
+    .recommendBar{
+        width:100%;
+         border-radius: 10px;
+        /*border: 1px solid black;*/
+    }
+    .searchbar{
+         /*background: rgba(255, 255, 255, 0.5);*/
     }
 
     #search{
@@ -97,6 +111,10 @@
         align-items: center;
         border-radius: 0 10px 10px 0;
         transition: 1s;
+    }
+    .reccomendBtn{
+        background: none;
+        width: 90px;
     }
     .fa-search{
         color: darkslategray;
@@ -160,7 +178,7 @@
         grid-gap: 10px;
         /*justify-content:;*/
         align-items: center;
-        height: 50px;
+        /*height: 50px;*/
     }
     .selectedGenre{
         display: grid;
@@ -172,6 +190,12 @@
     }
     .footer{
         background: black;
+    }
+    @media(max-width: 840px) {
+        .recommendBar{
+            width: 80%;
+        }
+
     }
 
 </style>
@@ -195,7 +219,9 @@
     <div class="recommendWord">장르를 골라 인생 영화를 찾아보세요!</div>
     <div class="recommendBarWrap" onmouseenter="getGenreBar()" onmouseleave="hideRecommend()">
         <div class="barBottomWrap">
-            <div class="recommendBar"></div>
+            <div class="recommendBar">
+
+            </div>
             <div class="reccomendBtn" type="button" onclick="getRecommendUrl()"><i class="fas fa-search fa-2x"></i></div>
         </div>
         <div class="recommendBox">
