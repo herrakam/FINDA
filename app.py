@@ -4,7 +4,7 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 aws_client = MongoClient('mongodb://test:test@54.180.112.223', 27017)
-aws_db = aws_client.DBFINDA
+db = aws_client.DBFINDA
 
 @app.route('/')
 def home():
