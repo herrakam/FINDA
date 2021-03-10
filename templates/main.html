@@ -42,6 +42,9 @@
         justify-content: center;
         /*align-items: center;*/
     }
+    .topWord *, .recommendWord *{
+        font-family: "Do Hyeon", sans-serif;
+    }
     .topWord,.recommendWord{
         display: flex;
         justify-content: space-between;
@@ -136,7 +139,17 @@
         /*justify-content: center;*/
         /*align-items: center;*/
         border-radius: 0 0 10px 10px;
-
+    }
+    .searchResult{
+        overflow-y: scroll;
+    }
+    .searchResult::-webkit-scrollbar{
+        width: 5px;
+        border-radius: 2px;
+    }
+    .searchResult::-webkit-scrollbar-thumb{
+        background: #202020;
+        border-radius: 2px;
     }
     .showSearchTitle{
         margin:0 0 0 20px;
@@ -216,7 +229,7 @@
 <div class="topBody">
     <div class="topWord">
         <div class="topWordFirst">찾는 영화가 어디서 서비스중인지</div>
-        <div class="topWordSecond">&nbsp바로 찾아보세요!</div>
+        <div class="topWordSecond">&nbsp찾아보세요!</div>
     </div>
     <div class="searchbarWrap">
         <div class="barTopWrap">
