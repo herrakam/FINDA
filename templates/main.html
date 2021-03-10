@@ -43,6 +43,8 @@
         /*align-items: center;*/
     }
     .topWord,.recommendWord{
+        display: flex;
+        justify-content: space-between;
         color: white;
         font-size: 30px;
         /*font-weight: bold;*/
@@ -77,11 +79,11 @@
 
     .recommendBar{
         width:100%;
-         border-radius: 10px;
+        border-radius: 10px;
         /*border: 1px solid black;*/
     }
     .searchbar{
-         /*background: rgba(255, 255, 255, 0.5);*/
+        /*background: rgba(255, 255, 255, 0.5);*/
     }
 
     #search{
@@ -195,14 +197,27 @@
         .recommendBar{
             width: 80%;
         }
-
     }
+    @media(max-width: 650px){
+
+        .topWord{
+            display: block;
+        }
+    }
+ @media(max-width: 650px){
+     .recommendWord{
+         display: block;
+     }
+ }
 
 </style>
 {% endblock %}
 {% block content %}
 <div class="topBody">
-    <div class="topWord"> 찾는 영화가 어디서 서비스중인지 바로 찾아보세요!</div>
+    <div class="topWord">
+        <div class="topWordFirst">찾는 영화가 어디서 서비스중인지</div>
+        <div class="topWordSecond">&nbsp바로 찾아보세요!</div>
+    </div>
     <div class="searchbarWrap">
         <div class="barTopWrap">
             <div class="searchbar">
@@ -216,7 +231,10 @@
 
 </div>
 <div class="bottomBody">
-    <div class="recommendWord">장르를 골라 인생 영화를 찾아보세요!</div>
+    <div class="recommendWord">
+        <div class="recommendWordFirst">장르를 골라 인생 영화를</div>
+        <div class="recommendWordSecond">&nbsp찾아보세요!</div>
+    </div>
     <div class="recommendBarWrap" onmouseenter="getGenreBar()" onmouseleave="hideRecommend()">
         <div class="barBottomWrap">
             <div class="recommendBar">
@@ -415,7 +433,6 @@
     function showHeader(){
         let scrollLocation = document.documentElement.scrollTop
         let headerHeight = $('.header').outerHeight()
-        console.log(scrollLocation, headerHeight)
         if(scrollLocation>headerHeight){
             $('.header').slideDown()
             $('.header').css('display','flex')
