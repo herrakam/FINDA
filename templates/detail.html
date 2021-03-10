@@ -13,6 +13,7 @@
 
   .topWrap > *{
     /*border:1px solid white;*/
+    font-weight: bold;
   }
   .topWrap{
     padding-top: 50px;
@@ -102,11 +103,11 @@
     overflow-y: hidden;
 
   }
-  .actors::-webkit-scrollbar{
+  .actors::-webkit-scrollbar, .platformDetailWrap::-webkit-scrollbar{
     height: 5px;
     background: #202020;
   }
-  .actors::-webkit-scrollbar-thumb{
+  .actors::-webkit-scrollbar-thumb, .platformDetailWrap::-webkit-scrollbar-thumb{
     background: black;
   }
   .platformInfoWrap{
@@ -119,6 +120,7 @@
     height: 80%;
     /*border: 1px solid white;*/
   }
+
   .platformInfo{
     margin: 0 20px 0 0;
     display: flex;
@@ -132,6 +134,7 @@
   }
   .platformName{
     font-size: 20px;
+    font-weight: bold;
   }
   .middleWrap{
     width:90%;
@@ -300,7 +303,14 @@
       height: 400px;
       margin: 0 0 0 0;
     }
-
+@media (max-width: 652px) {
+  .platformDetailWrap{
+    overflow-x: scroll;
+  }
+  .platformName{
+    font-size: 15px;
+  }
+}
   }
 
 
