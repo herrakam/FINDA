@@ -165,14 +165,18 @@
   }
   .similarMoviewrap{
     width: 90%;
+    min-width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(100px, 1fr));
-    place-content: center;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, 150px);
+    place-content: space-around;
+    border:1px solid white;
   }
   .similarPoster{
     width:150px;
     height: 200px;
     transition: 0.5s;
+    justify-content: space-evenly;
   }
   .review{
     width: 90%;
@@ -490,7 +494,6 @@
                          <a href="/detail?search=${similarTitle}">
                           <img class="similarPoster" src="${similarPoster}" alt="" >
                          </a>
-
                         </div>`
           $('.similarMoviewrap').append(temp)
         }
