@@ -154,6 +154,8 @@
     .showSearchTitle{
         margin:0 0 0 20px;
         text-decoration: none;
+        color: black;
+        font-weight: bold;
     }
     .searchboxLine{
         width:100%;
@@ -217,11 +219,11 @@
             display: block;
         }
     }
- @media(max-width: 650px){
-     .recommendWord{
-         display: block;
-     }
- }
+    @media(max-width: 650px){
+        .recommendWord{
+            display: block;
+        }
+    }
 
 </style>
 {% endblock %}
@@ -288,6 +290,7 @@
     function searchEngine() {
         $('.searchBtn').css('border-radius', '0 10px 0 0')
         $('.searchbar').css('border-radius', '10px 0 0 0')
+
         $('.searchResult').show()
         let search =$('#search').val()
         $('.searchResult').empty()
@@ -358,6 +361,7 @@
     }
 
     function getGenreBar(){
+        $('.barBottomWrap').css('border-radius', '10px 10px 0 0')
         $('.reccomendBtn').css('border-radius', '0 10px 0 0')
         $('.recommendBar').css('border-radius', '10px 0 0 0')
         setTimeout(function (){
@@ -375,6 +379,7 @@
         setTimeout(function (){
             $('.reccomendBtn').css('border-radius', '0 10px 10px 0')
             $('.recommendBar').css('border-radius', '10px 0 0 10px')
+             $('.barBottomWrap').css('border-radius', '10px')
             $('.recommendBox').css('padding-top',0)
             $('.genrebox').css('display','none')
             $('.recommendBox').css('border','none')
