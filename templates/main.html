@@ -341,16 +341,22 @@
     }
 
     function hideSearch(){
-        setTimeout(function (){
-            $('.searchBtn').css('border-radius', '0 10px 10px 0')
-            $('.searchbar').css('border-radius', '10px 0 0 10px')
+        if(timer){
+            clearTimeout(timer)
+        }
+        timer =  setTimeout(function (){
+
             $('.searchResult').empty()
             $('.searchResult').css('padding-top',0)
             $('.searchResult').css('border','none')
             $('.searchResult').animate({
                 height:'0px'
-            },200)
-        },200)}
+            })
+        },200)
+        $('.searchBtn').css('border-radius', '0 10px 10px 0')
+        $('.searchbar').css('border-radius', '10px 0 0 10px')
+
+    }
 
     function getInfoUrl(){
         let searchinfo = $('#search').val()
@@ -379,7 +385,7 @@
         setTimeout(function (){
             $('.reccomendBtn').css('border-radius', '0 10px 10px 0')
             $('.recommendBar').css('border-radius', '10px 0 0 10px')
-             $('.barBottomWrap').css('border-radius', '10px')
+            $('.barBottomWrap').css('border-radius', '10px')
             $('.recommendBox').css('padding-top',0)
             $('.genrebox').css('display','none')
             $('.recommendBox').css('border','none')
